@@ -1,0 +1,14 @@
+@font-face {
+	font-family: 'nanum_gothic_bold';
+	src: url('../fonts/NanumGothic-Bold.ttf');
+}
+
+@font-face {
+	font-family: 'nanum_gothic';
+	src: url('../fonts/NanumGothic-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'nanum_gothic_extra_bold';
+	src: url('../fonts/NanumGothic-ExtraBold.ttf');
+}
