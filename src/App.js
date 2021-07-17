@@ -4,8 +4,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { Layout } from "antd";
 import "./App.css";
 
-import AppHeader from "./components/Header";
-import AppFooter from "./components/Footer";
+import AppHeader from "./components/AppHeader";
+import AppFooter from "./components/AppFooter";
 
 import Home from "./routes/Home";
 import Courses from "./routes/Courses";
@@ -56,10 +56,9 @@ const contentStyle = {
   flexDirection: "column",
   justifyContent: "flex-start",
   background: "#fff",
-  padding: "40px",
   width: "100%",
   height: "100%",
-  marginTop: "80px",
+  marginTop: "90px",
 };
 
 export default App;
