@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Button, Space } from "antd";
+import { Layout, Menu, Button } from "antd";
 import { Link } from "react-router-dom";
 
 import logo from "../farmfather_logo.png";
@@ -27,12 +27,12 @@ const navs = [
   },
 ];
 
-const AppHeader = () => {
+const AppHeader = ({ showLoginPopup }) => {
   return (
     <Header className="header" style={headerStyle}>
       <div className="logo">
         <Link to="/">
-          <img src={logo} />
+          <img src={logo} alt="logo" />
         </Link>
       </div>
       <Menu
@@ -43,39 +43,32 @@ const AppHeader = () => {
         style={menuStyle}
       >
         {navs.map((nav, index) => (
-          <Link to={nav.link}>
-            <Menu.Item key={index} style={fontStyle}>
+          <Link key={index} to={nav.link}>
+            <Menu.Item key={index} style={menuItemStyle}>
               {nav.title}
             </Menu.Item>
           </Link>
         ))}
       </Menu>
-      <div className="headerBtns" style={{ ...headerBtnsStyle, ...fontStyle }}>
-        <Link to="/login">
-          <Button type="primary" className="btn" style={btnStyle}>
+      <div className="btnContainer" style={btnContainerStyle}>
+        <Link>
+          <Button
+            type="primary"
+            style={btnStyle}
+            onClick={showLoginPopup}
+            size="large"
+          >
             로그인
           </Button>
         </Link>
         <Link to="/register">
-          <Button type="primary" className="btn" style={btnStyle}>
+          <Button type="primary" style={btnStyle} size="large">
             회원가입
           </Button>
         </Link>
       </div>
     </Header>
   );
-};
-
-const fontStyle = {
-  fontSize: "larger",
-  fontFamily: "nanum_gothic_extra_bold",
-  color: "#444444",
-};
-
-const menuStyle = {
-  minWidth: "500px",
-  justifyContent: "center",
-  borderWidth: "0",
 };
 
 const headerStyle = {
@@ -89,19 +82,31 @@ const headerStyle = {
   width: "100%",
   boxShadow: "0px 1px 5px 1px grey",
 };
-
-const headerBtnsStyle = {
+const menuStyle = {
+  minWidth: "500px",
+  justifyContent: "center",
+  borderWidth: "0",
+  fontSize: "20px",
+  fontFamily: "notosans_bold",
+};
+const menuItemStyle = {
+  color: "#333333",
+};
+const btnContainerStyle = {
   display: "inline-flex",
-  width: "170px",
+  flexDirection: "row",
+  width: "180px",
   height: "70px",
   justifyContent: "space-between",
-  alignItems: "center",
+  alignItems: "space-between",
   marginRight: "20px",
 };
 
 const btnStyle = {
   background: "#009900",
   borderColor: "#009900",
+  fontFamily: "notosans_bold",
+  fontSize: "15px",
 };
 
 export default AppHeader;
