@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Form, Input, Button, Space } from "antd";
 
 import "../fonts/font.css";
 
 import logo from "../farmfather_logo.png";
+
+import { CloseOutlined, LockOutlined } from "@ant-design/icons";
 
 const formItemLayout = {
   labelCol: {
@@ -37,34 +39,70 @@ const tailFormItemLayout = {
   },
 };
 
-const LoginPopup = () => {
+const LoginPopup = ({ display, closeLoginPopup }) => {
   const [form] = Form.useForm();
 
-  const [visible, setVisible] = useState(true);
+  const popupRef = useRef(null);
+  const inputRef = useRef(null);
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onSubmit = (values) => {
+    console.log(values);
   };
 
+  const handleClickOutside = ({ target }) => {
+    if (display !== "none" && !popupRef.current.contains(target)) {
+      closeLoginPopup();
+    }
+  };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  });
+
   return (
-    <Space id="container" style={containerStyle}>
-      <Space id="popup" style={popupStyle}>
-        <div className="logo">
-          <img src={logo} />
+    <Space
+      className="container"
+      style={{
+        ...containerStyle,
+        display,
+      }}
+    >
+      <div className="popup" style={popupStyle} ref={popupRef}>
+        <div className="popupHeader" style={popupHeaderStyle}>
+          <CloseOutlined
+            style={{
+              fontSize: "20px",
+              color: "#777777",
+            }}
+            onClick={closeLoginPopup}
+          />
+        </div>
+        <div className="logoContainer" style={logoContainerStyle}>
+          <img src={logo} alt="logo" />
         </div>
         <Form
           {...formItemLayout}
           form={form}
           name="login"
-          onFinish={onFinish}
+          onFinish={onSubmit}
           style={formStyle}
           size="large"
         >
           <Form.Item name="email" label="이메일" style={formItemStyle}>
-            <Input />
+            <Input ref={inputRef} style={inputStyle} />
           </Form.Item>
           <Form.Item name="password" label="비밀번호" style={formItemStyle}>
-            <Input.Password />
+            <Input
+              type="password"
+              prefix={<LockOutlined />}
+              style={inputStyle}
+            />
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button
@@ -72,13 +110,12 @@ const LoginPopup = () => {
               htmlType="submit"
               size="large"
               style={buttonStyle}
-              onClick={onFinish}
             >
               로그인
             </Button>
           </Form.Item>
         </Form>
-      </Space>
+      </div>
     </Space>
   );
 };
@@ -91,14 +128,28 @@ const containerStyle = {
   height: "100vh",
   justifyContent: "center",
   alignItems: "center",
-  backdropFilter: "blur(10px)",
+  backdropFilter: "blur(2px)",
+};
+
+const popupHeaderStyle = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  paddingRight: "20px",
+  paddingTop: "20px",
+};
+
+const logoContainerStyle = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
 };
 
 const popupStyle = {
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-  minHeight: "500px",
+  justifyContent: "space-evenly",
+  minHeight: "400px",
   borderRadius: "20px",
   boxShadow: "5px 5px 20px 5px grey",
   background: "#ffffff",
@@ -111,6 +162,11 @@ const formStyle = {
   marginRight: "100px",
 };
 
+const inputStyle = {
+  height: "50px",
+  borderRadius: "10px",
+};
+
 const formItemStyle = {};
 
 const buttonStyle = {
@@ -118,6 +174,7 @@ const buttonStyle = {
   height: "50px",
   fontFamily: "nanum_gothic_bold",
   marginTop: "20px",
+  borderRadius: "10px",
 };
 
 export default LoginPopup;
