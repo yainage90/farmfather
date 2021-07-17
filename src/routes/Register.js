@@ -200,7 +200,7 @@ const formStyle = {
   justifyContent: "center",
   alignItems: "center",
   width: "450px",
-  fontFamily: "nanum_gothic_bold",
+  fontFamily: "notosans_bold",
   background: "#fff",
   marginRight: "100px",
 };
@@ -216,7 +216,7 @@ const titleStyle = {
   position: "relative",
   marginTop: "100px",
   marginBottom: "50px",
-  fontFamily: "nanum_gothic_bold",
+  fontFamily: "notosans_thin",
 };
 
 const buttonStyle = {

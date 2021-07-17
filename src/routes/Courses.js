@@ -2,36 +2,46 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 import SearchBox from "../components/SearchBox";
-import Course from "../components/Course";
+import CourseCard from "../components/CourseCard";
 import SideMenu from "../components/SideMenu";
 
-import { AutoComplete, Layout, Space } from "antd";
-import BannerSwiper from "../components/BannerSwiper";
+import { Layout, Space } from "antd";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState(null);
 
-  useEffect(() => {
-    axios
+  const getCourses = async () => {
+    await axios
       .get(
         "https://raw.githubusercontent.com/yaincoding/farmfather-fake-api/master/Course.json"
       )
       .then((res) => {
         const docs = res.data.docs;
         setCourses(docs);
+        console.log(docs);
       });
-  }, [courses]);
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
-    <div style={layoutStyle}>
-      <SideMenu mode="inline" style={sideMenuStyle} />
+    <Layout className="container" style={layoutStyle}>
+      <SideMenu className="sideMenu" mode="inline" style={sideMenuStyle} />
       <Layout style={contentStyle}>
         <SearchBox style={{}} />
         <Space style={coursesStyle}>
-          {courses && courses.map((course) => <Course data={course} />)}
+          {courses &&
+            courses.map((course, index) => (
+              <Link key={index} to={`/course/${course.id}`}>
+                <CourseCard key={index} data={course} />
+              </Link>
+            ))}
         </Space>
       </Layout>
-    </div>
+    </Layout>
   );
 };
 
@@ -44,12 +54,15 @@ const layoutStyle = {
   height: "100%",
   minHeight: "600px",
   overflow: "auto",
+  background: "#fff",
 };
 
 const sideMenuStyle = {
   width: "256px",
+  height: "500px",
   marginTop: "150px",
-  background: "#eeeeee",
+  background: "#fff",
+  borderWidth: "0",
 };
 
 const contentStyle = {
