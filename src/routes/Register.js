@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Layout, Form, Input, Button, Typography } from "antd";
 
 import "../fonts/font.css";
-import LoginPopup from "../components/LoginPopup";
 
 const { Title } = Typography;
 
@@ -42,7 +41,7 @@ const Register = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    console.log(values);
   };
 
   return (
@@ -113,7 +112,7 @@ const Register = () => {
               required: true,
               message: "비밀번호를 입력해주세요",
             },
-            ({ getFieldValue }) => ({
+            () => ({
               validator(_, value) {
                 if (!value || value.length >= 8) {
                   return Promise.resolve();
@@ -217,6 +216,7 @@ const titleStyle = {
   position: "relative",
   marginTop: "100px",
   marginBottom: "50px",
+  fontFamily: "nanum_gothic_bold",
 };
 
 const buttonStyle = {
