@@ -59,6 +59,7 @@ const coursesStyle = {
   justifyContent: "flex-start",
   flex: 1,
   overflow: "auto",
+  width: "90%",
 };
 
 export default Home;
