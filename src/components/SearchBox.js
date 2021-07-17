@@ -1,20 +1,10 @@
 import React from "react";
 
-import { Input, Space } from "antd";
-import { AudioOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 
 import "../fonts/font.css";
 
 const { Search } = Input;
-
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: "#1890ff",
-    }}
-  />
-);
 
 const onSearch = (value) => console.log(value);
 
@@ -34,7 +24,7 @@ const SearchBox = () => {
 };
 
 const searchBoxStyle = {
-  width: "600px",
+  width: "500px",
   maxWidth: "800px",
   minWidth: "300px",
   fontSize: "larger",
