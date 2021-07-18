@@ -8,7 +8,7 @@ const { Search } = Input;
 
 const onSearch = (value) => console.log(value);
 
-const SearchBox = () => {
+const SearchBox = ({ style }) => {
   return (
     <Search
       placeholder="찾고 싶은 강좌를 입력해주세요"
@@ -16,14 +16,16 @@ const SearchBox = () => {
       enterButton="검색"
       size="large"
       onSearch={onSearch}
-      style={{
-        ...searchBoxStyle,
-      }}
+      style={
+        style || {
+          ...defaultStyle,
+        }
+      }
     />
   );
 };
 
-const searchBoxStyle = {
+const defaultStyle = {
   width: "500px",
   maxWidth: "800px",
   minWidth: "300px",
