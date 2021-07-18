@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Button } from "antd";
+import { Layout, Space, Menu, Button } from "antd";
 import { Link } from "react-router-dom";
 
 import logo from "../farmfather_logo.png";
@@ -30,11 +30,11 @@ const navs = [
 const AppHeader = ({ showLoginPopup }) => {
   return (
     <Header className="header" style={headerStyle}>
-      <div className="logo">
+      <Space className="logo">
         <Link to="/">
           <img src={logo} alt="logo" />
         </Link>
-      </div>
+      </Space>
       <Menu
         theme="light"
         mode="horizontal"
@@ -50,7 +50,7 @@ const AppHeader = ({ showLoginPopup }) => {
           </Link>
         ))}
       </Menu>
-      <div className="btnContainer" style={btnContainerStyle}>
+      <Space className="btnContainer" style={btnContainerStyle}>
         <Link>
           <Button
             type="primary"
@@ -66,7 +66,7 @@ const AppHeader = ({ showLoginPopup }) => {
             회원가입
           </Button>
         </Link>
-      </div>
+      </Space>
     </Header>
   );
 };
