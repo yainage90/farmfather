@@ -31,7 +31,14 @@ const Courses = () => {
     <Layout className="container" style={layoutStyle}>
       <SideMenu className="sideMenu" mode="inline" style={sideMenuStyle} />
       <Layout style={contentStyle}>
-        <SearchBox style={{}} />
+        <SearchBox
+          style={{
+            width: "50%",
+            maxWidth: "600px",
+            marginTop: "50px",
+            marginBottom: "50px",
+          }}
+        />
         <Space style={coursesStyle}>
           {courses &&
             courses.map((course, index) => (
@@ -48,9 +55,9 @@ const Courses = () => {
 const layoutStyle = {
   display: "flex",
   flexDirection: "row",
-  width: "100%",
-  minWidth: "800px",
-  maxWidth: "1920px",
+  width: "70%",
+  maxWidth: "100%",
+  minWidth: "300px",
   height: "100%",
   minHeight: "600px",
   overflow: "auto",
@@ -58,11 +65,20 @@ const layoutStyle = {
 };
 
 const sideMenuStyle = {
+  display: "flex",
   width: "256px",
   height: "500px",
-  marginTop: "150px",
   background: "#fff",
   borderWidth: "0",
+  flexDirection: "column",
+  boxShadow: "3px 3px 10px 3px grey",
+  height: "auto",
+  borderRadius: "10px",
+  fontFamily: "notosans_regular",
+  position: "fixed",
+  left: "2%",
+  marginTop: "50px",
+  zIndex: 1,
 };
 
 const contentStyle = {
