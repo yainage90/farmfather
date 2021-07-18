@@ -14,10 +14,7 @@ const SideMenu = ({ mode, style }) => {
         onClick={() => {
           console.log("click");
         }}
-        style={{
-          ...style,
-          ...menuStyle,
-        }}
+        style={style}
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         mode={mode}
@@ -42,16 +39,6 @@ const SideMenu = ({ mode, style }) => {
       </Menu>
     </div>
   );
-};
-
-const menuStyle = {
-  display: "flex",
-  flexDirection: "column",
-  margin: "20px",
-  boxShadow: "3px 3px 10px 3px grey",
-  height: "auto",
-  borderRadius: "10px",
-  fontFamily: "notosans_regular",
 };
 
 export default SideMenu;
