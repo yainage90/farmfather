@@ -8,19 +8,15 @@ const { Search } = Input;
 
 const onSearch = (value) => console.log(value);
 
-const SearchBox = ({ style }) => {
+const SearchBox = ({ placeholder, style }) => {
   return (
     <Search
-      placeholder="찾고 싶은 강좌를 입력해주세요"
+      placeholder={placeholder}
       allowClear
       enterButton="검색"
       size="large"
       onSearch={onSearch}
-      style={
-        style || {
-          ...defaultStyle,
-        }
-      }
+      style={style || defaultStyle}
     />
   );
 };
