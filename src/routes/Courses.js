@@ -32,12 +32,16 @@ const Courses = () => {
       <SideMenu className="sideMenu" mode="inline" style={sideMenuStyle} />
       <Layout style={contentStyle}>
         <SearchBox
+          size="large"
           placeholder="찾고 싶은 강좌를 입력해주세요"
           style={{
             width: "50%",
             maxWidth: "600px",
             marginTop: "50px",
             marginBottom: "50px",
+          }}
+          onSearch={(keyword) => {
+            alert(keyword);
           }}
         />
         <Space style={coursesStyle}>
