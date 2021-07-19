@@ -28,7 +28,7 @@ const Home = () => {
   return (
     <Layout style={layoutStyle}>
       <BannerSwiper />
-      <SearchBox />
+      <SearchBox placeholder="찾고 싶은 강좌를 입력해주세요" />
       <Space style={coursesStyle}>
         {courses &&
           courses.map((course, index) => (
