@@ -6,15 +6,12 @@ import "../fonts/font.css";
 
 const { Search } = Input;
 
-const onSearch = (value) => console.log(value);
-
-const SearchBox = ({ placeholder, style }) => {
+const SearchBox = ({ size, onSearch, placeholder, style }) => {
   return (
     <Search
       placeholder={placeholder}
-      allowClear
       enterButton="검색"
-      size="large"
+      size={size}
       onSearch={onSearch}
       style={style || defaultStyle}
     />
