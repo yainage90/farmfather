@@ -123,12 +123,12 @@ const LoginPopup = ({ display, closeLoginPopup }) => {
 const containerStyle = {
   display: "flex",
   position: "fixed",
-  zIndex: 2,
+  zIndex: 4,
   width: "100%",
   height: "100vh",
   justifyContent: "center",
   alignItems: "center",
-  backdropFilter: "blur(2px)",
+  backdropFilter: "blur(3px)",
 };
 
 const popupHeaderStyle = {
