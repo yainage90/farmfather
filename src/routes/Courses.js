@@ -72,7 +72,6 @@ const layoutStyle = {
 const sideMenuStyle = {
   display: "flex",
   width: "256px",
-  height: "500px",
   background: "#fff",
   borderWidth: "0",
   flexDirection: "column",
