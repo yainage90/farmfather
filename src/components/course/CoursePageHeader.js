@@ -19,7 +19,6 @@ const renderContent = (
   column = 1,
   { title, starAvg, mentor, subject, price }
 ) => {
-  console.log(title, starAvg, mentor, subject, price);
   return (
     <div className="headerContainer" style={headerContainerStyle}>
       <div style={imageContainerStyle}>
