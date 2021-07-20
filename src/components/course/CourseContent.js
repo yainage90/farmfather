@@ -1,18 +1,25 @@
-import { Layout, Tabs, Space, Card, List, Menu, Empty } from "antd";
-import { CheckOutlined, PlayCircleOutlined } from "@ant-design/icons";
+import { Layout, Tabs, Space, List, Menu, Empty, Button } from "antd";
+import {
+  EditOutlined,
+  CheckOutlined,
+  PlayCircleOutlined,
+} from "@ant-design/icons";
 
 import React, { useState } from "react";
 
 import "../../fonts/font.css";
 import CourseWidget from "./CourseWidget";
 import SearchBox from "../SearchBox";
+import QuestionCard from "./QuestionCard";
+
+import TextEditor from "../TextEditor";
 
 const { SubMenu } = Menu;
 
 const { TabPane } = Tabs;
 
 const CourseContent = ({ data }) => {
-  const { detail, price, learns, contents, qNas } = data;
+  const { detail, price, learns, contents, qnas } = data;
 
   return (
     <Layout className="tabsLayout" style={tabsLayoutStyle}>
@@ -40,7 +47,7 @@ const CourseContent = ({ data }) => {
         </TabPane>
         <TabPane tab={<p style={tabTitleStyle}>{"질문과 답변"}</p>} key="3">
           <Layout className="courseInfoLayout" style={courseInfoLayoutStyle}>
-            {renderQnAs(qNas)}
+            <QnAs qnas={qnas} />
           </Layout>
         </TabPane>
         <TabPane tab={<p style={tabTitleStyle}>{"후기"}</p>} key="4">
@@ -208,53 +215,82 @@ const Contents = ({ contents }) => {
   );
 };
 
-const renderQnAs = (qNas) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      width: "60%",
-      maxWidth: "100%",
-      marginTop: "50px",
-    }}
-  >
-    <SearchBox
+const QnAs = ({ qnas }) => {
+  const [write, setWrite] = useState(false);
+
+  const listView = (
+    <div
       style={{
-        width: "80%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "60%",
         maxWidth: "100%",
-        marginBottom: "50px",
+        marginTop: "50px",
       }}
-    />
-    {(qNas &&
-      qNas.map((qNa, index) => (
-        <Card
-          title={qNa.title}
-          key={index}
+    >
+      <SearchBox
+        placeholder="질문을 검색하세요"
+        size="large"
+        onSearch={(keyword) => {
+          alert(keyword);
+        }}
+        style={{
+          width: "70%",
+          maxWidth: "100%",
+          marginBottom: "50px",
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "20px",
+        }}
+      >
+        <Button
+          type="primary"
+          size="large"
+          icon={<EditOutlined />}
           style={{
-            width: "80%",
-            maxWidth: "100%",
-            marginBottom: "20px",
+            fontFamily: "notosans_medium",
+            background: "#4f4f4f",
+            borderWidth: 0,
+          }}
+          onClick={() => {
+            setWrite(true);
           }}
         >
-          <p>{qNa.body}</p>
-        </Card>
-      ))) || (
-      <Empty
-        description={
-          <p
-            style={{
-              fontFamily: "notosans_light",
-              fontSize: "16px",
-            }}
-          >
-            질문이 없습니다
-          </p>
-        }
-      />
-    )}
-  </div>
-);
+          질문하기
+        </Button>
+      </div>
+      {(qnas &&
+        qnas.map((qna, index) => <QuestionCard key={index} qna={qna} />)) || (
+        <Empty
+          description={
+            <p
+              style={{
+                fontFamily: "notosans_light",
+                fontSize: "16px",
+              }}
+            >
+              질문이 없습니다
+            </p>
+          }
+        />
+      )}
+    </div>
+  );
+
+  const writeView = (
+    <div>
+      <TextEditor />
+    </div>
+  );
+
+  return (write && writeView) || listView;
+};
 
 const tabsLayoutStyle = {
   display: "inline-block",
