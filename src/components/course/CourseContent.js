@@ -1,9 +1,5 @@
-import { Layout, Tabs, Space, List, Menu, Empty, Button } from "antd";
-import {
-  EditOutlined,
-  CheckOutlined,
-  PlayCircleOutlined,
-} from "@ant-design/icons";
+import { Layout, Tabs, Space, List, Menu, Empty, Button, Anchor } from "antd";
+import { EditOutlined, CheckOutlined } from "@ant-design/icons";
 
 import React, { useState } from "react";
 
@@ -11,6 +7,7 @@ import "../../fonts/font.css";
 import CourseWidget from "./CourseWidget";
 import SearchBox from "../SearchBox";
 import QuestionCard from "./QuestionCard";
+import Contents from "./Contents";
 
 import TextEditor from "../TextEditor";
 
@@ -133,90 +130,8 @@ const renderLearns = (learns) => {
   );
 };
 
-const Contents = ({ contents }) => {
-  const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
-
-  const [openKeys, setOpenKeys] = useState(["sub1"]);
-
-  const onOpenChange = (keys) => {
-    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      setOpenKeys(keys);
-    } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-    }
-  };
-
-  return (
-    <div
-      style={{
-        width: "60%",
-        maxWidth: "100%",
-        marginTop: "50px",
-        marginBottom: "100px",
-      }}
-    >
-      <p
-        style={{
-          fontSize: "20px",
-          fontFamily: "notosans_bold",
-        }}
-      >
-        강의 컨텐츠
-      </p>
-      <Menu
-        mode="inline"
-        openKeys={openKeys}
-        onOpenChange={onOpenChange}
-        style={{ width: "100%" }}
-      >
-        {contents.map((content, index) => (
-          <SubMenu
-            key={`chapter_${index}`}
-            title={content.chapter}
-            style={{
-              background: "#d0d0d0",
-              border: "1px solid #e9ecef",
-              fontFamily: "notosans_regular",
-              fontSize: "16px",
-            }}
-          >
-            {content.videos.map((video, idx) => (
-              <Menu.Item
-                key={`${index}_${idx}`}
-                style={{
-                  fontSize: "14px",
-                }}
-              >
-                <Space
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Space>
-                    <PlayCircleOutlined />
-                    {video.title}
-                  </Space>
-                  <p
-                    style={{
-                      margin: "0 0",
-                    }}
-                  >
-                    13:01
-                  </p>
-                </Space>
-              </Menu.Item>
-            ))}
-          </SubMenu>
-        ))}
-      </Menu>
-    </div>
-  );
-};
-
 const QnAs = ({ qnas }) => {
-  const [write, setWrite] = useState(false);
+  const [currentView, setCurrentView] = useState("list");
 
   const listView = (
     <div
@@ -259,7 +174,7 @@ const QnAs = ({ qnas }) => {
             borderWidth: 0,
           }}
           onClick={() => {
-            setWrite(true);
+            setCurrentView("write");
           }}
         >
           질문하기
@@ -283,14 +198,29 @@ const QnAs = ({ qnas }) => {
     </div>
   );
 
+  const onOkClicked = () => {
+    alert("글 작성 완료");
+    setCurrentView("list");
+  };
+
+  const onCancelClicked = () => {
+    setCurrentView("list");
+  };
+
   const writeView = (
     <div>
-      <TextEditor />
+      <TextEditor onOkClicked={onOkClicked} onCancelClicked={onCancelClicked} />
     </div>
   );
 
-  return (write && writeView) || listView;
+  if (currentView === "list") {
+    return listView;
+  } else if (currentView === "write") {
+    return writeView;
+  }
 };
+
+const Reviews = () => {};
 
 const tabsLayoutStyle = {
   display: "inline-block",

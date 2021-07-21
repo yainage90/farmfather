@@ -13,6 +13,7 @@ const QuestionCard = ({ qna }) => {
       style={cardStyle}
       bodyStyle={cardBodyStyle}
       qna={qna}
+      hoverable
     >
       <div
         className="cardbody"
