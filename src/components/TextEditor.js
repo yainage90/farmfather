@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
-import { Editor } from "@tinymce/tinymce-react";
 
-const TextEditor = () => {
+import { Editor } from "@tinymce/tinymce-react";
+import { Space, Button } from "antd";
+
+const TextEditor = ({ onOkClicked, onCancelClicked }) => {
   const editorRef = useRef(null);
   const log = () => {
     if (editorRef.current) {
@@ -36,9 +38,46 @@ const TextEditor = () => {
           images_upload_url: "hello.com",
         }}
       />
-      <button onClick={log}>Log editor content</button>
+      <Space className="btnContainer" style={btnContainerStyle}>
+        <Button
+          type="primary"
+          style={{
+            ...btnStyle,
+            background: "#008833",
+          }}
+          onClick={onOkClicked}
+          size="large"
+        >
+          확인
+        </Button>
+        <Button
+          type="primary"
+          style={{
+            ...btnStyle,
+            background: "#505050",
+          }}
+          size="large"
+          onClick={onCancelClicked}
+        >
+          취소
+        </Button>
+      </Space>
     </>
   );
+};
+
+const btnContainerStyle = {
+  display: "inline-flex",
+  width: "100%",
+  justifyContent: "flex-end",
+  marginTop: "30px",
+};
+
+const btnStyle = {
+  borderWidth: "0px",
+  fontFamily: "notosans_bold",
+  fontSize: "15px",
+  marginLeft: "20px",
 };
 
 export default TextEditor;
