@@ -1,6 +1,5 @@
 import {
   PageHeader,
-  Tabs,
   Statistic,
   Descriptions,
   Image,
@@ -13,11 +12,9 @@ import { UserOutlined } from "@ant-design/icons";
 
 import "../../fonts/font.css";
 
-const { TabPane } = Tabs;
-
 const renderContent = (
   column = 1,
-  { title, starAvg, mentor, subject, price }
+  { title, starAvg, mentor, subTitle, price }
 ) => {
   return (
     <div className="headerContainer" style={headerContainerStyle}>
@@ -37,7 +34,7 @@ const renderContent = (
           <p style={titleStyle}>{title}</p>
         </Descriptions.Item>
         <Descriptions.Item>
-          <p style={subTitleStyle}>{subject}</p>
+          <p style={subTitleStyle}>{subTitle}</p>
         </Descriptions.Item>
         <Descriptions.Item>
           <Rate disabled allowHalf value={starAvg} />
@@ -59,7 +56,7 @@ const renderContent = (
               }}
               icon={<UserOutlined />}
             />
-            <p style={mentoStyle}>{mentor}</p>
+            <p style={mentorStyle}>{mentor}</p>
           </div>
         </Descriptions.Item>
       </Descriptions>
@@ -152,7 +149,7 @@ const subTitleStyle = {
   color: "#fff",
 };
 
-const mentoStyle = {
+const mentorStyle = {
   margin: "0 0",
   padding: "0 0",
   fontFamily: "notosans_bold",
