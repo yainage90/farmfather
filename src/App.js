@@ -8,8 +8,8 @@ import AppHeader from "./components/AppHeader";
 import AppFooter from "./components/AppFooter";
 
 import Home from "./routes/Home";
-import Courses from "./routes/Courses";
-import Course from "./routes/Course";
+import Courses from "./routes/course/Courses";
+import Course from "./routes/course/Course";
 import Register from "./routes/Register";
 import LoginPopup from "./components/LoginPopup";
 
