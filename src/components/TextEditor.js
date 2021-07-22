@@ -12,7 +12,7 @@ const TextEditor = ({ onOkClicked, onCancelClicked }) => {
   };
 
   return (
-    <>
+    <div style={containerStyle}>
       <Editor
         onInit={(evt, editor) => (editorRef.current = editor)}
         initialValue="글을 작성하세요!"
@@ -62,8 +62,13 @@ const TextEditor = ({ onOkClicked, onCancelClicked }) => {
           취소
         </Button>
       </Space>
-    </>
+    </div>
   );
+};
+
+const containerStyle = {
+  display: "flex",
+  flexDirection: "column",
 };
 
 const btnContainerStyle = {
