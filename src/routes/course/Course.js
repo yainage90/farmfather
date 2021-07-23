@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import CourseContent from "../../components/course/CourseTab";
+import CourseTab from "../../components/course/CourseTab";
 import CoursePageHeader from "../../components/course/CoursePageHeader";
 
 import { Layout } from "antd";
@@ -22,7 +22,7 @@ const Course = () => {
   return (
     <Layout className="container" style={containerStyle}>
       <CoursePageHeader data={course} />
-      <CourseContent data={course} />
+      <CourseTab data={course} />
     </Layout>
   );
 };
