@@ -50,7 +50,7 @@ const ReviewSummary = ({ reviews, starAvg }) => {
                 margin: "0 0",
               }}
             >
-              평점 {starAvg}
+              평점 {starAvg} / 5.0
             </p>
           }
           style={{
