@@ -59,6 +59,9 @@ const Contents = ({ contents }) => {
                 style={{
                   fontSize: "14px",
                 }}
+                onClick={() => {
+                  alert(`비디오 재생 ${JSON.stringify(video)}`);
+                }}
               >
                 <Space
                   style={{
