@@ -1,4 +1,4 @@
-import Layout from "antd/lib/layout/layout";
+import div from "antd/lib/layout/layout";
 import React from "react";
 
 import { PageHeader, Descriptions, Divider, Card, Button, Space } from "antd";
@@ -10,25 +10,26 @@ import Avatar from "antd/lib/avatar/avatar";
 
 const QuestionDetail = ({ qna, onBackClicked }) => {
   return (
-    <Layout style={layoutStyle}>
+    <div style={layoutStyle}>
       <div
         style={{
           display: "inline-flex",
-          left: "2%",
-          top: "40%",
-          position: "fixed",
           zIndex: 2,
+          position: "fixed",
+          top: "40%",
+          left: "5%",
         }}
       >
         <Button
           style={{
             borderWidth: "2px",
             borderRadius: "1rem",
-            borderColor: "#ddd",
-            fontSize: "18px",
+            borderColor: "#d0d0d0",
+            fontSize: "1.4rem",
             height: "auto",
             width: "auto",
-            padding: "10px 20px",
+            padding: "0.6rem 1.2rem",
+            background: "#f8f8f8",
           }}
           onClick={onBackClicked}
         >
@@ -45,13 +46,12 @@ const QuestionDetail = ({ qna, onBackClicked }) => {
           </p>
         </Button>
       </div>
-      <Layout style={contentLayoutStyle}>
-        <Layout className="question" style={questionLayoutSytle}>
+      <div style={contentLayoutStyle}>
+        <div className="question" style={questionLayoutSytle}>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              width: "70%",
             }}
           >
             <PageHeader
@@ -92,13 +92,13 @@ const QuestionDetail = ({ qna, onBackClicked }) => {
               {qna.question}
             </p>
           </div>
-        </Layout>
-        <Layout className="answer" style={answerLayoutStyle}>
+        </div>
+        <div className="answer" style={answerLayoutStyle}>
           <div
             style={{
+              width: "100%",
               display: "flex",
               flexDirection: "column",
-              width: "70%",
             }}
           >
             <Divider>
@@ -117,9 +117,9 @@ const QuestionDetail = ({ qna, onBackClicked }) => {
               <ReplyCard answer={answer} />
             ))}
           </div>
-        </Layout>
-      </Layout>
-    </Layout>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -167,9 +167,6 @@ const ReplyCard = ({ answer }) => {
 };
 
 const layoutStyle = {
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "flex-start",
   background: "#fff",
 };
 
@@ -188,16 +185,15 @@ const questionLayoutSytle = {
 };
 
 const answerLayoutStyle = {
-  width: "100%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   background: "#fff",
   marginTop: "50px",
+  width: "100%",
 };
 
 const replyCardStyle = {
-  width: "100%",
   borderRadius: "1rem",
   margin: "10px 0 10px 0",
 };

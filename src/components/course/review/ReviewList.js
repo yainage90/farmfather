@@ -19,7 +19,6 @@ const ReviewList = ({ reviews, starAvg }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: "60%",
         maxWidth: "100%",
         marginTop: "50px",
       }}

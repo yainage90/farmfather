@@ -54,7 +54,7 @@ const ReviewSummary = ({ reviews, starAvg }) => {
             </p>
           }
           style={{
-            width: "30%",
+            width: "40%",
           }}
           bordered
         >
@@ -62,7 +62,7 @@ const ReviewSummary = ({ reviews, starAvg }) => {
         </Card>
         <Card
           style={{
-            width: "60%",
+            width: "50%",
             fontFamily: "notosans_medium",
           }}
         >

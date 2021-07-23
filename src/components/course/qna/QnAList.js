@@ -12,7 +12,6 @@ const QnAList = ({ qnas, onWriteBtnClicked, onCardClicked }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: "60%",
         maxWidth: "100%",
         marginTop: "50px",
       }}
@@ -24,7 +23,6 @@ const QnAList = ({ qnas, onWriteBtnClicked, onCardClicked }) => {
           alert(keyword);
         }}
         style={{
-          width: "70%",
           maxWidth: "100%",
           marginBottom: "50px",
         }}
