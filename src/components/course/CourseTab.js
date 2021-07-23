@@ -14,7 +14,7 @@ import ReviewList from "./review/ReviewList";
 
 const { TabPane } = Tabs;
 
-const CourseContent = ({ data }) => {
+const CourseTab = ({ data }) => {
   const { detail, price, learns, contents, qnas, reviews, starAvg } = data;
 
   return (
@@ -33,7 +33,17 @@ const CourseContent = ({ data }) => {
           <Layout className="courseInfoLayout" style={courseInfoLayoutStyle}>
             {renderDetail(detail)}
             {renderLearns(learns)}
-            {contents && <Contents contents={contents} />}
+            {contents && (
+              <Contents
+                contents={contents}
+                style={{
+                  width: "100%",
+                  maxWidth: "100%",
+                  marginTop: "50px",
+                  marginBottom: "100px",
+                }}
+              />
+            )}
           </Layout>
         </TabPane>
         <TabPane tab={<p style={tabTitleStyle}>강의 컨텐츠</p>} key="2">
@@ -58,7 +68,7 @@ const CourseContent = ({ data }) => {
 
 const renderDetail = (detail) => {
   const style = {
-    width: "60%",
+    width: "100%",
     maxWidth: "100%",
     minWidth: "364px",
     fontFamily: "notosans_medium",
@@ -78,7 +88,7 @@ const renderLearns = (learns) => {
     <div
       className="listContainer"
       style={{
-        width: "60%",
+        width: "100%",
         maxWidth: "100%",
         minWidth: "364px",
         marginTop: "50px",
@@ -177,8 +187,10 @@ const QnAs = ({ qnas }) => {
 };
 
 const tabsLayoutStyle = {
-  display: "inline-block",
+  display: "flex",
   background: "#fff",
+  position: "sticky",
+  top: 0,
 };
 
 const tabTitleStyle = {
@@ -187,10 +199,12 @@ const tabTitleStyle = {
 };
 
 const courseInfoLayoutStyle = {
-  display: "inline-flex",
-  alignItems: "center",
+  display: "inline-block",
   background: "#fff",
-  width: "60%",
+  width: "50%",
+  maxWidth: "720px",
+  position: "relative",
+  left: "20%",
 };
 
-export default CourseContent;
+export default CourseTab;
