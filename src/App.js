@@ -58,7 +58,6 @@ const contentStyle = {
   background: "#fff",
   width: "100%",
   height: "100%",
-  marginTop: "90px",
 };
 
 export default App;
