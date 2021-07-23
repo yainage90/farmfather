@@ -89,8 +89,8 @@ const widgetLayoutStyle = {
   flexBasis: "33.333333%",
   maxWidth: "33.333333%",
   background: "#fff",
-  right: "10%",
   top: "40%",
+  left: "70%",
   position: "fixed",
   zIndex: 3,
 };
