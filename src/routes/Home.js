@@ -6,6 +6,7 @@ import CourseCard from "../components/CourseCard";
 
 import { Layout, Space } from "antd";
 import BannerSwiper from "../components/BannerSwiper";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [courses, setCourses] = useState(null);
@@ -38,7 +39,9 @@ const Home = () => {
       <Space style={coursesStyle}>
         {courses &&
           courses.map((course, index) => (
-            <CourseCard key={index} data={course} />
+            <Link key={index} to={`/course/${course.id}`}>
+              <CourseCard key={index} data={course} />
+            </Link>
           ))}
       </Space>
     </Layout>
