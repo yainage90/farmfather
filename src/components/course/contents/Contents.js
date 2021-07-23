@@ -5,7 +5,7 @@ import SubMenu from "antd/lib/menu/SubMenu";
 
 import { PlayCircleOutlined } from "@ant-design/icons";
 
-const Contents = ({ contents }) => {
+const Contents = ({ contents, style }) => {
   const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
 
   const [openKeys, setOpenKeys] = useState(["sub1"]);
@@ -21,12 +21,7 @@ const Contents = ({ contents }) => {
 
   return (
     <div
-      style={{
-        width: "60%",
-        maxWidth: "100%",
-        marginTop: "50px",
-        marginBottom: "100px",
-      }}
+      style={style}
     >
       <p
         style={{
