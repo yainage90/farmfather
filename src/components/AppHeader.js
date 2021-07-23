@@ -76,11 +76,12 @@ const headerStyle = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  height: "90px",
-  position: "fixed",
+  height: "5rem",
+  position: "sticky",
+  top: 0,
   zIndex: 2,
   width: "100%",
-  boxShadow: "0px 1px 5px 1px grey",
+  boxShadow: "0px 3px 4px 1px grey",
 };
 const menuStyle = {
   minWidth: "500px",
