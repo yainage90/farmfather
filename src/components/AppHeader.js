@@ -15,7 +15,7 @@ const navs = [
   },
   {
     title: "강의관리",
-    link: "/courseManage",
+    link: "/instruct",
   },
   {
     title: "마이 페이지",
@@ -90,9 +90,11 @@ const menuStyle = {
   fontSize: "20px",
   fontFamily: "notosans_bold",
 };
+
 const menuItemStyle = {
   color: "#333333",
 };
+
 const btnContainerStyle = {
   display: "inline-flex",
   flexDirection: "row",
