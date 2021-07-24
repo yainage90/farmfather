@@ -10,10 +10,34 @@ import AppFooter from "./components/AppFooter";
 import Home from "./routes/Home";
 import Courses from "./routes/course/Courses";
 import Course from "./routes/course/Course";
-import Register from "./routes/Register";
-import LoginPopup from "./components/LoginPopup";
+import Register from "./routes/auth/Register";
+import LoginPopup from "./components/auth/LoginPopup";
+import InstructMain from "./routes/instruct/InstructMain";
 
 const { Content } = Layout;
+
+const routes = [
+  {
+    path: "/",
+    component: { Home },
+  },
+  {
+    path: "/register",
+    component: { Register },
+  },
+  {
+    path: "/courses",
+    component: { Courses },
+  },
+  {
+    path: "/course/:courseId",
+    component: { Course },
+  },
+  {
+    path: "/instruct",
+    component: { InstructMain },
+  },
+];
 
 const App = () => {
   const [loginPopupDisplay, setLoginPopupDisplay] = useState("none");
@@ -44,6 +68,7 @@ const App = () => {
           <Route path="/register" component={Register} exact />
           <Route path="/courses" component={Courses} exact />
           <Route path="/course/:courseId" component={Course} exact />
+          <Route path="/instruct" component={InstructMain} />
         </Content>
         <AppFooter />
       </Layout>
