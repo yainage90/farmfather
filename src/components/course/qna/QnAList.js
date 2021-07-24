@@ -23,7 +23,8 @@ const QnAList = ({ qnas, onWriteBtnClicked, onCardClicked }) => {
           alert(keyword);
         }}
         style={{
-          maxWidth: "100%",
+          width: "60%",
+          maxWidth: "564px",
           marginBottom: "50px",
         }}
       />
