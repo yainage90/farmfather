@@ -14,16 +14,12 @@ import "../../fonts/font.css";
 
 const renderContent = (
   column = 1,
-  { title, starAvg, mentor, subTitle, price }
+  { title, starAvg, mentor, subTitle, price, thumbnail }
 ) => {
   return (
     <div className="headerContainer" style={headerContainerStyle}>
       <div style={imageContainerStyle}>
-        <Image
-          width="300px"
-          height="300px"
-          src="https://raw.githubusercontent.com/yaincoding/farmfather-fake-api/master/thumbnail/course/280fc8c6-d485-42f7-e5ed-a3f6e6839a74.jpg"
-        />
+        <Image width="300px" height="300px" src={thumbnail} />
       </div>
       <Descriptions
         size="default"
