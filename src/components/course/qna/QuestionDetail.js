@@ -1,7 +1,6 @@
-import div from "antd/lib/layout/layout";
 import React from "react";
 
-import { PageHeader, Descriptions, Divider, Card, Button, Space } from "antd";
+import { PageHeader, Descriptions, Divider, Card, Button } from "antd";
 
 import { UserOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 

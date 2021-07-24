@@ -5,11 +5,6 @@ import { Space, Button } from "antd";
 
 const TextEditor = ({ onOkClicked, onCancelClicked }) => {
   const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
 
   return (
     <div style={containerStyle}>
