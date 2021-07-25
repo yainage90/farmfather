@@ -7,28 +7,14 @@ import { Link } from "react-router-dom";
 
 import "../../fonts/font.css";
 
-const navs = [
-  {
-    title: "수업 관리",
-    to: "/instruct/course",
-  },
-  {
-    title: "질문 관리",
-    to: "/instruct/qna",
-  },
-  {
-    title: "리뷰 관리",
-    to: "/instruct/review",
-  },
-];
-
-const InstructionNavigation = () => {
+const InstructionNavigation = ({ navs }) => {
   const [selected, setSelected] = useState(0);
 
   return (
     <Space className="navigation" style={navigationStyle}>
       {navs.map((nav, index) => {
-        const selectedStyle = index === selected ? { color: "#00c060" } : {};
+        const selectedStyle =
+          nav.to === window.location.pathname ? { color: "#00c060" } : {};
 
         return (
           <Link to={nav.to}>
