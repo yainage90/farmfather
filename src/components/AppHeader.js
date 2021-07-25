@@ -15,7 +15,7 @@ const navs = [
   },
   {
     title: "강의관리",
-    link: "/instruct",
+    link: "/instruct/course",
   },
   {
     title: "마이 페이지",
