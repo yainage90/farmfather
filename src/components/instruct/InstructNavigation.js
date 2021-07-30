@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 import "../../fonts/font.css";
 
 const InstructionNavigation = ({ navs }) => {
-  const [selected, setSelected] = useState(0);
-
   return (
     <Space className="navigation" style={navigationStyle}>
       {navs.map((nav, index) => {
@@ -17,15 +15,12 @@ const InstructionNavigation = ({ navs }) => {
           nav.to === window.location.pathname ? { color: "#00c060" } : {};
 
         return (
-          <Link to={nav.to}>
+          <Link to={nav.to} key={index}>
             <Button
               type="link"
               style={{
                 ...buttonStyle,
                 ...selectedStyle,
-              }}
-              onClick={() => {
-                setSelected(index);
               }}
             >
               {nav.title}

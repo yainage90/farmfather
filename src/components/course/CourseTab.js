@@ -154,15 +154,6 @@ const QnAs = ({ qnas }) => {
     setCurrentView("write");
   };
 
-  const onOkClicked = () => {
-    alert("글 작성 완료");
-    setCurrentView("list");
-  };
-
-  const onCancelClicked = () => {
-    setCurrentView("list");
-  };
-
   const onBackClicked = () => {
     setCurrentView("list");
   };
@@ -176,9 +167,15 @@ const QnAs = ({ qnas }) => {
       />
     );
   } else if (currentView === "write") {
-    return (
-      <TextEditor onOkClicked={onOkClicked} onCancelClicked={onCancelClicked} />
-    );
+    const textEditorProps = {
+      okButtonTitle: "확인",
+      cancelButtonTitle: "취소",
+      submitUrl: "/api/",
+      okPostProcess: null,
+      cancelPostProcess: null,
+    };
+
+    return <TextEditor {...textEditorProps} />;
   } else if (currentView === "detail") {
     return (
       <QuestionDetail qna={selectedQuestion} onBackClicked={onBackClicked} />

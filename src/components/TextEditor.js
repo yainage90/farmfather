@@ -1,16 +1,25 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
 import { Space, Button } from "antd";
 
-const TextEditor = ({ onOkClicked, onCancelClicked }) => {
+const TextEditor = ({
+  okButtonTitle = "확인",
+  cancelButtonTitle = "취소",
+  submitUrl,
+  okPostProcess,
+  cancelPostProcess,
+  detail,
+}) => {
   const editorRef = useRef(null);
+
+  const [value, setValue] = useState("");
 
   return (
     <div style={containerStyle}>
       <Editor
-        onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue="글을 작성하세요!"
+        onInit={(editor) => (editorRef.current = editor)}
+        initialValue={detail || "글을 작성하세요!"}
         init={{
           height: 500,
           menubar: false,
@@ -32,6 +41,9 @@ const TextEditor = ({ onOkClicked, onCancelClicked }) => {
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
           images_upload_url: "hello.com",
         }}
+        onEditorChange={(value, editor) => {
+          setValue(value);
+        }}
       />
       <Space className="btnContainer" style={btnContainerStyle}>
         <Button
@@ -40,10 +52,15 @@ const TextEditor = ({ onOkClicked, onCancelClicked }) => {
             ...btnStyle,
             background: "#008833",
           }}
-          onClick={onOkClicked}
+          onClick={() => {
+            alert(`${submitUrl}로\n${value}\n전송`);
+            if (okPostProcess) {
+              okPostProcess();
+            }
+          }}
           size="large"
         >
-          확인
+          {okButtonTitle}
         </Button>
         <Button
           type="primary"
@@ -52,9 +69,9 @@ const TextEditor = ({ onOkClicked, onCancelClicked }) => {
             background: "#505050",
           }}
           size="large"
-          onClick={onCancelClicked}
+          onClick={cancelPostProcess}
         >
-          취소
+          {cancelButtonTitle}
         </Button>
       </Space>
     </div>
