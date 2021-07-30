@@ -15,7 +15,7 @@ const navs = [
   },
   {
     title: "강의관리",
-    link: "/instruct/course",
+    link: "/instruct/list",
   },
   {
     title: "마이 페이지",
@@ -51,16 +51,14 @@ const AppHeader = ({ showLoginPopup }) => {
         ))}
       </Menu>
       <Space className="btnContainer" style={btnContainerStyle}>
-        <Link>
-          <Button
-            type="primary"
-            style={btnStyle}
-            onClick={showLoginPopup}
-            size="large"
-          >
-            로그인
-          </Button>
-        </Link>
+        <Button
+          type="primary"
+          style={btnStyle}
+          onClick={showLoginPopup}
+          size="large"
+        >
+          로그인
+        </Button>
         <Link to="/register">
           <Button type="primary" style={btnStyle} size="large">
             회원가입
