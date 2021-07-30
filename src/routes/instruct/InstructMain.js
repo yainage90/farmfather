@@ -3,16 +3,17 @@ import React, { useState, useEffect } from "react";
 import Layout from "antd/lib/layout/layout";
 import { Route, Switch } from "react-router-dom";
 import InstructionNavigation from "../../components/instruct/InstructNavigation";
-import CourseInstruct from "./subpage/CourseInstruct";
-import QnAInstruct from "./subpage/QnAInstruct";
-import ReviewInstruct from "./subpage/ReviewInstruct";
+import MyCourseList from "./list/MyCourseList";
+import QnAInstruct from "./qna/QnAInstruct";
+import ReviewInstruct from "./review/ReviewInstruct";
 import axios from "axios";
 import EditCourse from "./edit/EditCourse";
+import CreateCourse from "./create/CreateCourse";
 
 const navs = [
   {
     title: "수업 관리",
-    to: "/instruct/course",
+    to: "/instruct/list",
   },
   {
     title: "질문 관리",
@@ -24,7 +25,7 @@ const navs = [
   },
   {
     title: "강의 생성",
-    to: "/instruct/edit",
+    to: "/instruct/create",
   },
 ];
 
@@ -60,13 +61,14 @@ const InstructMain = () => {
         </div>
         <Switch>
           <Route
-            path="/instruct/course"
-            render={() => <CourseInstruct courses={courses} />}
+            path="/instruct/list"
+            render={() => <MyCourseList courses={courses} />}
             exact
           />
           <Route path="/instruct/qna" component={QnAInstruct} exact />
           <Route path="/instruct/review" component={ReviewInstruct} exact />
-          <Route path="/instruct/edit" component={EditCourse} exact />
+          <Route path="/instruct/edit" component={EditCourse} />
+          <Route path="/instruct/create" component={CreateCourse} />
         </Switch>
       </Layout>
     </Layout>
