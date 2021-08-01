@@ -5,7 +5,7 @@ import React, { useState } from "react";
 
 import "../../fonts/font.css";
 import CourseWidget from "./CourseWidget";
-import Contents from "./contents/Contents";
+import Chapters from "./chapters/Chapters";
 
 import TextEditor from "../TextEditor";
 import QuestionDetail from "./qna/QuestionDetail";
@@ -15,7 +15,7 @@ import ReviewList from "./review/ReviewList";
 const { TabPane } = Tabs;
 
 const CourseTab = ({ data }) => {
-  const { detail, price, learns, contents, qnas, reviews, starAvg } = data;
+  const { id, detail, price, learns, chapters, qnas, reviews, starAvg } = data;
 
   return (
     <Layout className="tabsLayout" style={tabsLayoutStyle}>
@@ -33,9 +33,9 @@ const CourseTab = ({ data }) => {
           <Layout className="courseInfoLayout" style={courseInfoLayoutStyle}>
             {renderDetail(detail)}
             {renderLearns(learns)}
-            {contents && (
-              <Contents
-                contents={contents}
+            {chapters && (
+              <Chapters
+                chapters={chapters}
                 style={{
                   width: "100%",
                   maxWidth: "100%",
@@ -48,7 +48,7 @@ const CourseTab = ({ data }) => {
         </TabPane>
         <TabPane tab={<p style={tabTitleStyle}>강의 컨텐츠</p>} key="2">
           <Layout className="courseInfoLayout" style={courseInfoLayoutStyle}>
-            {contents && <Contents contents={contents} />}
+            {chapters && <Chapters chapters={chapters} />}
           </Layout>
         </TabPane>
         <TabPane tab={<p style={tabTitleStyle}>{"질문과 답변"}</p>} key="3">
@@ -141,6 +141,29 @@ const renderLearns = (learns) => {
   );
 };
 
+const textEditorProps = {
+  submitUrl: `/api/course/`,
+  okButtonTitle: `확인`,
+  cancelButtonTitle: `취소`,
+
+  buttonsContainerStyle: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  submitBtnStyle: {
+    minWidth: "140px",
+    marginTop: "50px",
+    height: "auto",
+    minHeight: "3.4rem",
+    fontFamily: "notosans_bold",
+    fontSize: "1.4rem",
+    background: "#30d090",
+    borderWidth: 0,
+  },
+};
+
 const QnAs = ({ qnas }) => {
   const [currentView, setCurrentView] = useState("list");
   const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -167,15 +190,7 @@ const QnAs = ({ qnas }) => {
       />
     );
   } else if (currentView === "write") {
-    const textEditorProps = {
-      okButtonTitle: "확인",
-      cancelButtonTitle: "취소",
-      submitUrl: "/api/",
-      okPostProcess: null,
-      cancelPostProcess: null,
-    };
-
-    return <TextEditor {...textEditorProps} />;
+    return <TextEditor textEditorProps={textEditorProps} />;
   } else if (currentView === "detail") {
     return (
       <QuestionDetail qna={selectedQuestion} onBackClicked={onBackClicked} />
