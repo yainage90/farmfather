@@ -3,6 +3,8 @@ import React from "react";
 import { Layout, Form, Button, Input } from "antd";
 import { v4 } from "uuid";
 
+import { EditOutlined } from "@ant-design/icons";
+
 const CreateCourse = () => {
   const [form] = Form.useForm();
 
@@ -32,8 +34,9 @@ const CreateCourse = () => {
             htmlType="submit"
             size="large"
             style={submitBtnStyle}
+            icon={<EditOutlined />}
           >
-            저장 후 다음으로 이동
+            생성하기
           </Button>
         </Form.Item>
       </Form>
@@ -46,14 +49,14 @@ const createContentContainerStyle = {
   flexDirection: "column",
   width: "100%",
   maxWidth: "1080px",
-  alignItems: "flex-start",
+  alignItems: "center",
   background: "#fff",
   margin: "1rem 0 1rem 0",
   padding: "2rem 2rem 2rem 2rem",
 };
 
 const formStyle = {
-  width: "100%",
+  width: "60%",
 };
 
 const formItemStyle = {
@@ -66,18 +69,17 @@ const inputStyle = {
   fontFamily: "notosans_medium",
   fontSize: "1.1rem",
   width: "100%",
-  maxWidth: "576px",
+  minHeight: "3.4rem",
   background: "#f0f0f0",
 };
 
 const submitBtnStyle = {
   width: "100%",
-  maxWidth: "576px",
   marginTop: "50px",
   height: "auto",
   minHeight: "3.4rem",
   fontFamily: "notosans_bold",
-  fontSize: "1.4rem",
+  fontSize: "auto",
   background: "#30d090",
   borderWidth: 0,
 };
