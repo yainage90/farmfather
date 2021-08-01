@@ -4,22 +4,23 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Space, Button } from "antd";
 
 const TextEditor = ({
-  okButtonTitle = "확인",
-  cancelButtonTitle = "취소",
   submitUrl,
-  okPostProcess,
-  cancelPostProcess,
-  detail,
+  okButtonTitle,
+  cancelButtonTitle,
+  goOkTarget,
+  goCancelTarget,
+  buttonsContainerStyle,
+  submitBtnStyle,
+  content,
 }) => {
   const editorRef = useRef(null);
-
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(content);
 
   return (
     <div style={containerStyle}>
       <Editor
         onInit={(editor) => (editorRef.current = editor)}
-        initialValue={detail || "글을 작성하세요!"}
+        initialValue={content || "글을 작성하세요!"}
         init={{
           height: 500,
           menubar: false,
@@ -45,35 +46,34 @@ const TextEditor = ({
           setValue(value);
         }}
       />
-      <Space className="btnContainer" style={btnContainerStyle}>
+      <div className="btnContainer" style={buttonsContainerStyle}>
         <Button
           type="primary"
-          style={{
-            ...btnStyle,
-            background: "#008833",
-          }}
+          style={submitBtnStyle}
+          size="large"
           onClick={() => {
-            alert(`${submitUrl}로\n${value}\n전송`);
-            if (okPostProcess) {
-              okPostProcess();
+            alert(`${submitUrl}로 ${value} 전송`);
+            if (goCancelTarget) {
+              goCancelTarget();
+            }
+          }}
+        >
+          {cancelButtonTitle}
+        </Button>
+        <Button
+          type="primary"
+          style={submitBtnStyle}
+          onClick={() => {
+            alert(`${submitUrl}로 ${value} 전송`);
+            if (goOkTarget) {
+              goOkTarget();
             }
           }}
           size="large"
         >
           {okButtonTitle}
         </Button>
-        <Button
-          type="primary"
-          style={{
-            ...btnStyle,
-            background: "#505050",
-          }}
-          size="large"
-          onClick={cancelPostProcess}
-        >
-          {cancelButtonTitle}
-        </Button>
-      </Space>
+      </div>
     </div>
   );
 };
@@ -81,20 +81,6 @@ const TextEditor = ({
 const containerStyle = {
   display: "flex",
   flexDirection: "column",
-};
-
-const btnContainerStyle = {
-  display: "inline-flex",
-  width: "100%",
-  justifyContent: "flex-end",
-  marginTop: "30px",
-};
-
-const btnStyle = {
-  borderWidth: "0px",
-  fontFamily: "notosans_bold",
-  fontSize: "15px",
-  marginLeft: "20px",
 };
 
 export default TextEditor;
