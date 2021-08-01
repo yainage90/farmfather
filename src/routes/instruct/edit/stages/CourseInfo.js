@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import { Layout, Form, Button, Input } from "antd";
-import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  MinusCircleOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -33,17 +37,19 @@ const CourseInfo = () => {
   }, [title, learns]);
 
   const onSubmit = (values) => {
-    alert({
-      id,
-      ...values,
-    });
+    alert(
+      JSON.stringify({
+        id,
+        ...values,
+      })
+    );
     window.location.href = `/instruct/edit/${id}/course_detail`;
   };
 
   return (
     <Layout
-      className="create-content-container"
-      style={createContentContainerStyle}
+      className="edit-content-container"
+      style={editContentContainerStyle}
     >
       <Form form={form} layout="vertical" style={formStyle} onFinish={onSubmit}>
         <Form.Item
@@ -144,6 +150,7 @@ const CourseInfo = () => {
             }}
           </Form.List>
         </div>
+
         <Form.Item>
           <Button
             type="primary"
@@ -151,7 +158,8 @@ const CourseInfo = () => {
             size="large"
             style={submitBtnStyle}
           >
-            저장 후 다음으로 이동
+            다음
+            <RightOutlined />
           </Button>
         </Form.Item>
       </Form>
@@ -159,7 +167,7 @@ const CourseInfo = () => {
   );
 };
 
-const createContentContainerStyle = {
+const editContentContainerStyle = {
   display: "flex",
   flexDirection: "column",
   width: "100%",
