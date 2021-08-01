@@ -8,7 +8,6 @@ import { Route, Switch } from "react-router-dom";
 
 import CourseDetail from "./stages/CourseDetail";
 import CourseChapters from "./stages/CourseChapters";
-import Complete from "./stages/Complete";
 
 const EditCourse = ({ loadedCourse }) => {
   const action = loadedCourse ? "강의 수정" : "강의 생성";
@@ -51,7 +50,6 @@ const EditCourse = ({ loadedCourse }) => {
           render={() => <CourseChapters loadedContents={chapters} />}
           exact
         />
-        <Route path="/instruct/edit/:id/complete" component={Complete} exact />
       </Switch>
     </Layout>
   );

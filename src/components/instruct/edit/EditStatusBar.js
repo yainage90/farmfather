@@ -26,11 +26,6 @@ const EditStatusBar = ({ action, current }) => {
       title: "수업 컨텐츠",
       url: "/instruct/edit/course_content",
     },
-    {
-      stage: 3,
-      title: "완료",
-      url: "/instruct/edit/complete",
-    },
   ];
 
   return (

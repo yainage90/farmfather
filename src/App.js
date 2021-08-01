@@ -13,31 +13,11 @@ import Course from "./routes/course/Course";
 import Register from "./routes/auth/Register";
 import LoginPopup from "./components/auth/LoginPopup";
 import InstructMain from "./routes/instruct/InstructMain";
+import MyPage from "./routes/user/MyPage";
+
+import UserContextProvider from "./context/auth/UserContextProvider";
 
 const { Content } = Layout;
-
-const routes = [
-  {
-    path: "/",
-    component: { Home },
-  },
-  {
-    path: "/register",
-    component: { Register },
-  },
-  {
-    path: "/courses",
-    component: { Courses },
-  },
-  {
-    path: "/course/:courseId",
-    component: { Course },
-  },
-  {
-    path: "/instruct",
-    component: { InstructMain },
-  },
-];
 
 const App = () => {
   const [loginPopupDisplay, setLoginPopupDisplay] = useState("none");
@@ -62,15 +42,18 @@ const App = () => {
           display={loginPopupDisplay}
           closeLoginPopup={closeLoginPopup}
         />
-        <AppHeader showLoginPopup={showLoginPopup} />
-        <Content style={contentStyle}>
-          <Route path="/" component={Home} exact />
-          <Route path="/register" component={Register} exact />
-          <Route path="/courses" component={Courses} exact />
-          <Route path="/course/:courseId" component={Course} exact />
-          <Route path="/instruct" component={InstructMain} />
-        </Content>
-        <AppFooter />
+        <UserContextProvider>
+          <AppHeader showLoginPopup={showLoginPopup} />
+          <Content style={contentStyle}>
+            <Route path="/" component={Home} exact />
+            <Route path="/register" component={Register} exact />
+            <Route path="/courses" component={Courses} exact />
+            <Route path="/course/:id" component={Course} exact />
+            <Route path="/instruct" component={InstructMain} />
+            <Route path="/mypage" component={MyPage} />
+          </Content>
+          <AppFooter />
+        </UserContextProvider>
       </Layout>
     </BrowserRouter>
   );
