@@ -9,9 +9,9 @@ import { Layout } from "antd";
 const Course = () => {
   const [course, setCourse] = useState(Object.create({}));
 
-  const { courseId } = useParams();
+  const { id } = useParams();
   const getCourseInfo = async () => {
-    await axios.get(`/api/course/${courseId}`).then((res) => {
+    await axios.get(`/api/course/${id}`).then((res) => {
       setCourse(res.data);
     });
   };

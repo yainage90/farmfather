@@ -34,7 +34,7 @@ const CourseChapters = () => {
 
   const onSubmit = (values) => {
     alert(values);
-    window.location.href = `/instruct/edit/${id}/complete`;
+    window.location.href = `/instruct/list`;
   };
 
   const createChapter = (chapter) => {
@@ -124,7 +124,7 @@ const CourseChapters = () => {
         style={submitBtnStyle}
         onClick={onSubmit}
       >
-        저장 후 다음으로 이동
+        완료
       </Button>
     </Layout>
   );
