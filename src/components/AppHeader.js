@@ -19,11 +19,7 @@ const navs = [
   },
   {
     title: "마이 페이지",
-    link: "/myPage",
-  },
-  {
-    title: "고객센터",
-    link: "/center",
+    link: "/mypage",
   },
 ];
 
