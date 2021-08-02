@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Form, Input, Button, Typography } from "antd";
 
 import "../../fonts/font.css";
+import axios from "axios";
 
 const { Title } = Typography;
 
@@ -40,8 +41,27 @@ const tailFormItemLayout = {
 const Register = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
-    console.log(values);
+  const onFinish = async (values) => {
+    const { email, nickName, password } = values;
+    await axios
+      .post("/api/register", {
+        email,
+        password,
+        nickName,
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert(" 회원가입 완료");
+        window.location.href = "/";
+      })
+      .catch((err) => {
+        console.log(err.message);
+        console.log(err.response.status);
+
+        if (err.response.status === 409) {
+          alert("동일한 email이 이미 존재합니다.");
+        }
+      });
   };
 
   return (
@@ -131,7 +151,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="confirm"
+          name="passwordConfirm"
           label="비밀번호 확인"
           dependencies={["password"]}
           hasFeedback
@@ -158,7 +178,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="nickname"
+          name="nickName"
           label="닉네임(별명)"
           rules={[
             {
@@ -177,7 +197,6 @@ const Register = () => {
             htmlType="submit"
             size="large"
             style={buttonStyle}
-            onClick={onFinish}
           >
             가입 완료
           </Button>
