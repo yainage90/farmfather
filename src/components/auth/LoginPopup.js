@@ -6,6 +6,7 @@ import "../../fonts/font.css";
 import logo from "../../farmfather_logo.png";
 
 import { CloseOutlined, LockOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const formItemLayout = {
   labelCol: {
@@ -45,8 +46,24 @@ const LoginPopup = ({ display, closeLoginPopup }) => {
   const popupRef = useRef(null);
   const inputRef = useRef(null);
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    const { email, password } = values;
+    await axios
+      .post("/api/authenticate", {
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        window.sessionStorage.setItem("user", res.data.user);
+        window.sessionStorage.setItem("jwt", res.data.jwt);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          alert("비밀번호가 틀렸습니다");
+        }
+        console.log(err);
+      });
   };
 
   const handleClickOutside = ({ target }) => {
