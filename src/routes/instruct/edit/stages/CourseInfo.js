@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 
-import { Layout, Form, Button, Input } from "antd";
+import { Layout, Form, Button, Input, Radio } from "antd";
 import {
   PlusOutlined,
   MinusCircleOutlined,
@@ -8,42 +8,41 @@ import {
 } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { CourseContext } from "../../../../context/course/CourseContextProvider";
 
 const CourseInfo = () => {
   const { id } = useParams();
 
   const [form] = Form.useForm();
 
-  const [title, setTitle] = useState("");
-  const [learns, setLearns] = useState([]);
+  const { course, contextDispatch } = useContext(CourseContext);
 
-  useEffect(() => {
-    const getData = async () => {
-      await axios
-        .get(
-          "https://raw.githubusercontent.com/yaincoding/farmfather-fake-api/master/Course.json"
-        )
-        .then((res) => {
-          const docs = res.data.docs;
-          const doc = docs.find((doc) => doc.id === id);
-          if (doc) {
-            setTitle(doc.title);
-            setLearns(doc.learns);
-          }
-        });
-    };
-
-    getData();
-  }, [title, learns]);
-
-  const onSubmit = (values) => {
-    alert(
-      JSON.stringify({
+  const onSubmit = async ({ title, status, learns }) => {
+    await axios({
+      url: `/api/course/update`,
+      method: "put",
+      data: {
         id,
-        ...values,
+        title,
+        status,
+        learns,
+      },
+      headers: {
+        jwt: window.sessionStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => {
+        contextDispatch({
+          type: "COURSE",
+          value: res.data,
+        });
+        console.log(res.data);
+        alert("저장되었습니다");
+        window.location.href = `/instruct/edit/${id}/course_thumbnail`;
       })
-    );
-    window.location.href = `/instruct/edit/${id}/course_detail`;
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -56,13 +55,45 @@ const CourseInfo = () => {
           name="title"
           label={<p style={formItemStyle}>수업 제목</p>}
           required
-          initialValue={title}
+          initialValue={course.title}
         >
           <Input size="large" style={inputStyle} />
         </Form.Item>
+        <Form.Item
+          name="status"
+          required
+          label={<p style={formItemStyle}>수업 상태</p>}
+        >
+          <Radio.Group defaultValue={course.status || "pending"}>
+            <Radio
+              value="pending"
+              style={{
+                fontFamily: "notosans_medium",
+                fontSize: "18px",
+                borderWidth: 0,
+                marginRight: "10px",
+                color: "#ff000080",
+              }}
+            >
+              준비중
+            </Radio>
+            <Radio
+              value="ready"
+              style={{
+                fontFamily: "notosans_medium",
+                fontSize: "18px",
+                borderWidth: 0,
+                marginRight: "10px",
+                color: "#50c090",
+              }}
+            >
+              수강 가능
+            </Radio>
+          </Radio.Group>
+        </Form.Item>
         <br />
         <div>
-          <Form.List name="learns" learns={learns}>
+          <Form.List name="learns" learns={course.learns}>
             {(fields, { add, remove }, { errors }) => {
               return (
                 <>

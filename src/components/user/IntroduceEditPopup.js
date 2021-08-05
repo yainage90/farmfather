@@ -3,10 +3,9 @@ import { Form, Input, Button } from "antd";
 
 import "../../fonts/font.css";
 
-import { CloseOutlined } from "@ant-design/icons";
-
 import { UserContext } from "../../context/auth/UserContextProvider";
 import TextEditor from "../TextEditor";
+import axios from "axios";
 
 const IntroduceEditPopup = ({ close }) => {
   const [form] = Form.useForm();
@@ -15,16 +14,6 @@ const IntroduceEditPopup = ({ close }) => {
   const inputRef = useRef(null);
 
   const { user, contextDispatch } = useContext(UserContext);
-
-  const onSubmit = (values) => {
-    const { nickName } = values;
-    //...
-    contextDispatch({
-      type: "NICKNAME",
-      value: nickName,
-    });
-    close();
-  };
 
   const textEditorProps = {
     submitUrl: `/api/course/`,

@@ -1,17 +1,33 @@
 import React from "react";
 
 import { Layout, Form, Button, Input } from "antd";
-import { v4 } from "uuid";
 
 import { EditOutlined } from "@ant-design/icons";
+import axios from "axios";
+import EditStatusBar from "../../../components/instruct/edit/EditStatusBar";
 
 const CreateCourse = () => {
   const [form] = Form.useForm();
 
-  const onSubmit = ({ title }) => {
-    const id = v4();
-    alert(`id: ${id}, title: ${title}`);
-    window.location.href = `/instruct/edit/${id}/course_info`;
+  const onSubmit = async ({ title }) => {
+    await axios({
+      url: "/api/course/save",
+      method: "post",
+      data: {
+        title,
+      },
+      headers: {
+        jwt: window.sessionStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        const { id } = res.data;
+        window.location.href = `/instruct/edit/${id}/course_info`;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -19,6 +35,7 @@ const CreateCourse = () => {
       className="create-content-container"
       style={createContentContainerStyle}
     >
+      <EditStatusBar action="강의생성" status={-1} />
       <Form form={form} layout="vertical" style={formStyle} onFinish={onSubmit}>
         <Form.Item
           name="title"
@@ -48,21 +65,20 @@ const createContentContainerStyle = {
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  maxWidth: "1080px",
   alignItems: "center",
   background: "#fff",
-  margin: "1rem 0 1rem 0",
-  padding: "2rem 2rem 2rem 2rem",
+  margin: "0 0 1rem 0",
 };
 
 const formStyle = {
-  width: "60%",
+  maxWidth: "684px",
+  width: "100%",
 };
 
 const formItemStyle = {
   fontFamily: "notosans_bold",
   fontSize: "1.4rem",
-  margin: "0 0",
+  margin: "2rem 0",
 };
 
 const inputStyle = {

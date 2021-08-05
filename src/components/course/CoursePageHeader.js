@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 import {
   PageHeader,
   Statistic,
@@ -11,11 +13,31 @@ import {
 import { UserOutlined } from "@ant-design/icons";
 
 import "../../fonts/font.css";
+import axios from "axios";
 
-const renderContent = (
+const RenderContent = (
   column = 1,
-  { title, starAvg, mentor, subTitle, price, thumbnail }
+  { title, starAvg, mentorId, price, thumbnail }
 ) => {
+  const [mentor, setMentor] = useState(null);
+
+  useEffect(() => {
+    const getMentor = async () => {
+      await axios({
+        url: `/api/user/${mentorId}`,
+        method: "get",
+        headers: {
+          jwt: window.sessionStorage.getItem("jwt"),
+        },
+      }).then((res) => {
+        console.log(res.data);
+        setMentor(res.data);
+      });
+    };
+
+    getMentor();
+  }, [JSON.stringify(mentor)]);
+
   return (
     <div className="headerContainer" style={headerContainerStyle}>
       <div style={imageContainerStyle}>
@@ -28,9 +50,6 @@ const renderContent = (
       >
         <Descriptions.Item>
           <p style={titleStyle}>{title}</p>
-        </Descriptions.Item>
-        <Descriptions.Item>
-          <p style={subTitleStyle}>{subTitle}</p>
         </Descriptions.Item>
         <Descriptions.Item>
           <Rate disabled allowHalf value={starAvg} />
@@ -52,7 +71,7 @@ const renderContent = (
               }}
               icon={<UserOutlined />}
             />
-            <p style={mentorStyle}>{mentor}</p>
+            <p style={mentorStyle}>{mentor && mentor.nickName}</p>
           </div>
         </Descriptions.Item>
       </Descriptions>
@@ -105,7 +124,7 @@ const CoursePageHeader = ({ data }) => {
   return (
     <div className="headerContainer" style={headerContainerStyle}>
       <PageHeader className="site-page-header-responsive" style={headerStyle}>
-        <Content extra={null}>{renderContent(1, data)}</Content>
+        <Content extra={null}>{RenderContent(1, data)}</Content>
       </PageHeader>
     </div>
   );

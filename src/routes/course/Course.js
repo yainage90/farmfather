@@ -10,12 +10,14 @@ const Course = () => {
   const [course, setCourse] = useState(Object.create({}));
 
   const { id } = useParams();
-  const getCourseInfo = async () => {
-    await axios.get(`/api/course/${id}`).then((res) => {
-      setCourse(res.data);
-    });
-  };
+
   useEffect(() => {
+    const getCourseInfo = async () => {
+      await axios.get(`/api/course/${id}`).then((res) => {
+        console.log(res.data);
+        setCourse(res.data);
+      });
+    };
     getCourseInfo();
   }, []);
 

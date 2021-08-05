@@ -20,25 +20,6 @@ const navs = [
 ];
 
 const InstructMain = () => {
-  const [courses, setCourses] = useState([]);
-
-  const getCourses = async () => {
-    await axios
-      .get(
-        "https://raw.githubusercontent.com/yaincoding/farmfather-fake-api/master/Course.json"
-      )
-      .then((res) => {
-        const docs = res.data.docs;
-        setCourses(docs);
-      });
-  };
-
-  useEffect(() => {
-    getCourses();
-  }, []);
-
-  console.log(courses);
-
   return (
     <Layout className="page-container" style={containerStyle}>
       <Layout className="page" style={pageStyle}>
@@ -50,12 +31,8 @@ const InstructMain = () => {
           />
         </div>
         <Switch>
-          <Route
-            path="/instruct/list"
-            render={() => <MyCourseList courses={courses} />}
-            exact
-          />
-          <Route path="/instruct/edit" component={EditCourse} />
+          <Route path="/instruct/list" render={() => <MyCourseList />} exact />
+          <Route path="/instruct/edit/:id" component={EditCourse} />
           <Route path="/instruct/create" component={CreateCourse} />
         </Switch>
       </Layout>

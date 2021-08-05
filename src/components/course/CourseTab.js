@@ -108,7 +108,7 @@ const renderLearns = (learns) => {
           </p>
         }
         bordered
-        dataSource={learns}
+        dataSource={learns || []}
         style={{
           borderRadius: "10px",
         }}

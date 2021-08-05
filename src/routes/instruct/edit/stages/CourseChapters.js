@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { Layout, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -8,33 +8,40 @@ import ChapterCreatePopup from "../../../../components/instruct/edit/ChapterCrea
 import { v4 } from "uuid";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { CourseContext } from "../../../../context/course/CourseContextProvider";
 
 const CourseChapters = () => {
   const { id } = useParams();
 
-  const [chapters, setChapters] = useState([]);
+  const { course, contextDispatch } = useContext(CourseContext);
+
+  const [chapters, setChapters] = useState(course.chapters || []);
   const [chapterToEdit, setChapterToEdit] = useState(null);
 
-  useEffect(() => {
-    const getData = async () => {
-      await axios
-        .get(
-          "https://raw.githubusercontent.com/yaincoding/farmfather-fake-api/master/Course.json"
-        )
-        .then((res) => {
-          const docs = res.data.docs;
-          const doc = docs.find((doc) => doc.id === id);
-          if (doc) {
-            setChapters(doc.chapters);
-          }
+  const onSubmit = async () => {
+    await axios({
+      url: `/api/course/update`,
+      method: "put",
+      data: {
+        id,
+        chapters,
+      },
+      headers: {
+        jwt: window.sessionStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => {
+        contextDispatch({
+          type: "COURSE",
+          value: res.data,
         });
-    };
-    getData();
-  }, []);
-
-  const onSubmit = (values) => {
-    alert(values);
-    window.location.href = `/instruct/list`;
+        console.log(res.data);
+        alert("저장되었습니다");
+        window.location.href = `/instruct`;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const createChapter = (chapter) => {
@@ -70,7 +77,7 @@ const CourseChapters = () => {
     setChapters(newChapters);
   };
 
-  if (chapters.length < 1) {
+  if (!chapters || chapters.length < 1) {
     createChapter({
       id: v4(),
       title: "챕터를 생성하고 강의를 추가할 수 있습니다",
@@ -119,7 +126,6 @@ const CourseChapters = () => {
 
       <Button
         type="primary"
-        htmlType="submit"
         size="large"
         style={submitBtnStyle}
         onClick={onSubmit}

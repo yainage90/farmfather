@@ -1,10 +1,34 @@
+import React, { useState, useEffect } from "react";
+
 import { Table, Tag, Space, Image, Button } from "antd";
 import Layout from "antd/lib/layout/layout";
-import React from "react";
+import axios from "axios";
 
 import "../../../fonts/font.css";
 
-const MyCourseList = ({ courses }) => {
+const MyCourseList = () => {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const getCourses = async () => {
+      await axios({
+        url: "/api/course/my",
+        method: "get",
+        headers: {
+          jwt: window.sessionStorage.getItem("jwt"),
+        },
+      })
+        .then((res) => {
+          console.log(res.data);
+          setCourses(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getCourses();
+  }, []);
+
   const columns = [
     {
       title: <p style={tableColumnsTitleStyle}>썸네일</p>,
@@ -48,8 +72,21 @@ const MyCourseList = ({ courses }) => {
             <Button
               type="primary"
               danger
-              onClick={() => {
-                alert(`${id} 삭제 요청`);
+              onClick={async () => {
+                axios({
+                  url: `/api/course/${id}`,
+                  method: "delete",
+                  headers: {
+                    jwt: window.sessionStorage.getItem("jwt"),
+                  },
+                })
+                  .then((res) => {
+                    alert("삭제되었습니다");
+                    window.location.reload();
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               }}
             >
               삭제

@@ -11,18 +11,22 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [courses, setCourses] = useState(null);
 
-  const getCourses = async () => {
-    await axios
-      .get(
-        "https://raw.githubusercontent.com/yaincoding/farmfather-fake-api/master/Course.json"
-      )
-      .then((res) => {
-        const docs = res.data.docs;
-        setCourses(docs);
-      });
-  };
-
   useEffect(() => {
+    const getCourses = async () => {
+      axios({
+        url: "/api/course/all",
+        method: "get",
+        headers: {
+          jwt: window.sessionStorage.getItem("jwt"),
+        },
+      })
+        .then((res) => {
+          setCourses(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     getCourses();
   }, []);
 
