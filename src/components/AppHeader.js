@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Layout, Space, Menu, Button } from "antd";
 import { Link } from "react-router-dom";
 
 import logo from "../farmfather_logo.png";
 
 import "../fonts/font.css";
+import { UserContext } from "../context/auth/UserContextProvider";
 
 const { Header } = Layout;
 
@@ -12,18 +13,34 @@ const navs = [
   {
     title: "강의",
     link: "/courses",
+    restricted: false,
   },
   {
     title: "강의관리",
     link: "/instruct/list",
+    restricted: true,
   },
   {
     title: "마이 페이지",
     link: "/mypage",
+    restricted: true,
   },
 ];
 
 const AppHeader = ({ showLoginPopup }) => {
+  const { user, contextDispatch } = useContext(UserContext);
+
+  const logout = () => {
+    contextDispatch({
+      type: "LOGOUT",
+      value: null,
+    });
+    window.sessionStorage.setItem("user", null);
+    window.sessionStorage.setItem("jwt", null);
+
+    window.location.href = "/courses";
+  };
+
   return (
     <Header className="header" style={headerStyle}>
       <Space className="logo">
@@ -38,29 +55,46 @@ const AppHeader = ({ showLoginPopup }) => {
         defaultSelectedKeys={["1"]}
         style={menuStyle}
       >
-        {navs.map((nav, index) => (
-          <Link key={index} to={nav.link}>
-            <Menu.Item key={index} style={menuItemStyle}>
-              {nav.title}
-            </Menu.Item>
-          </Link>
-        ))}
+        {navs
+          .filter((nav) => !nav.restricted || user.id)
+          .map((nav, index) => (
+            <Link key={index} to={nav.link}>
+              <Menu.Item key={index} style={menuItemStyle}>
+                {nav.title}
+              </Menu.Item>
+            </Link>
+          ))}
       </Menu>
-      <Space className="btnContainer" style={btnContainerStyle}>
-        <Button
-          type="primary"
-          style={btnStyle}
-          onClick={showLoginPopup}
-          size="large"
+      {!user.id && (
+        <Space
+          className="logoutedButtonsContainer"
+          style={logoutedButtonsContainerStyle}
         >
-          로그인
-        </Button>
-        <Link to="/register">
-          <Button type="primary" style={btnStyle} size="large">
-            회원가입
+          <Button
+            type="primary"
+            style={btnStyle}
+            onClick={showLoginPopup}
+            size="large"
+          >
+            로그인
           </Button>
-        </Link>
-      </Space>
+          <Link to="/register">
+            <Button type="primary" style={btnStyle} size="large">
+              회원가입
+            </Button>
+          </Link>
+        </Space>
+      )}
+      {user && user.id && (
+        <Space
+          className="logoutedButtonsContainer"
+          style={logoutedButtonsContainerStyle}
+        >
+          <Button type="primary" style={btnStyle} onClick={logout} size="large">
+            로그아웃
+          </Button>
+        </Space>
+      )}
     </Header>
   );
 };
@@ -89,13 +123,11 @@ const menuItemStyle = {
   color: "#333333",
 };
 
-const btnContainerStyle = {
-  display: "inline-flex",
+const logoutedButtonsContainerStyle = {
+  display: "flex",
   flexDirection: "row",
-  width: "180px",
-  height: "70px",
-  justifyContent: "space-between",
-  alignItems: "space-between",
+  minWidth: "180px",
+  justifyContent: "flex-end",
   marginRight: "20px",
 };
 
@@ -104,6 +136,7 @@ const btnStyle = {
   borderColor: "#009900",
   fontFamily: "notosans_bold",
   fontSize: "15px",
+  marginRight: "1rem",
 };
 
 export default AppHeader;

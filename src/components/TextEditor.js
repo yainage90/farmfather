@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
 import { Space, Button } from "antd";
+import axios from "axios";
+
+import { useParams } from "react-router";
 
 const TextEditor = ({
   submitUrl,
@@ -15,6 +18,8 @@ const TextEditor = ({
 }) => {
   const editorRef = useRef(null);
   const [value, setValue] = useState(content);
+
+  const { id } = useParams();
 
   return (
     <div style={containerStyle}>
@@ -51,11 +56,28 @@ const TextEditor = ({
           type="primary"
           style={submitBtnStyle}
           size="large"
-          onClick={() => {
-            alert(`${submitUrl}로 ${value} 전송`);
-            if (goCancelTarget) {
-              goCancelTarget();
-            }
+          onClick={async () => {
+            await axios({
+              url: submitUrl,
+              method: "put",
+              data: {
+                id,
+                detail: value,
+              },
+              headers: {
+                jwt: window.sessionStorage.getItem("jwt"),
+              },
+            })
+              .then((res) => {
+                console.log(res.data);
+                alert("저장되었습니다");
+                if (goOkTarget) {
+                  goOkTarget();
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }}
         >
           {cancelButtonTitle}
@@ -63,11 +85,28 @@ const TextEditor = ({
         <Button
           type="primary"
           style={submitBtnStyle}
-          onClick={() => {
-            alert(`${submitUrl}로 ${value} 전송`);
-            if (goOkTarget) {
-              goOkTarget();
-            }
+          onClick={async () => {
+            await axios({
+              url: submitUrl,
+              method: "put",
+              data: {
+                id,
+                detail: value,
+              },
+              headers: {
+                jwt: window.sessionStorage.getItem("jwt"),
+              },
+            })
+              .then((res) => {
+                console.log(res.data);
+                alert("저장되었습니다");
+                if (goOkTarget) {
+                  goOkTarget();
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }}
           size="large"
         >

@@ -16,6 +16,8 @@ import InstructMain from "./routes/instruct/InstructMain";
 import MyPage from "./routes/user/MyPage";
 
 import UserContextProvider from "./context/auth/UserContextProvider";
+import CourseContextProvider from "./context/course/CourseContextProvider";
+import VideoPlay from "./routes/course/VideoPlay";
 
 const { Content } = Layout;
 
@@ -32,29 +34,32 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Layout
-        className="layout"
-        style={{
-          minHeight: "100vh",
-        }}
-      >
-        <LoginPopup
-          display={loginPopupDisplay}
-          closeLoginPopup={closeLoginPopup}
-        />
-        <UserContextProvider>
+      <UserContextProvider>
+        <Layout
+          className="layout"
+          style={{
+            minHeight: "100vh",
+          }}
+        >
+          <LoginPopup
+            display={loginPopupDisplay}
+            closeLoginPopup={closeLoginPopup}
+          />
           <AppHeader showLoginPopup={showLoginPopup} />
           <Content style={contentStyle}>
             <Route path="/" component={Home} exact />
             <Route path="/register" component={Register} exact />
             <Route path="/courses" component={Courses} exact />
             <Route path="/course/:id" component={Course} exact />
-            <Route path="/instruct" component={InstructMain} />
+            <CourseContextProvider>
+              <Route path="/instruct" component={InstructMain} />
+            </CourseContextProvider>
             <Route path="/mypage" component={MyPage} />
+            <Route path="/video/:videoId" component={VideoPlay} />
           </Content>
           <AppFooter />
-        </UserContextProvider>
-      </Layout>
+        </Layout>
+      </UserContextProvider>
     </BrowserRouter>
   );
 };

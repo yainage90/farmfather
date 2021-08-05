@@ -3,7 +3,6 @@ import React, { useState, useContext } from "react";
 import { Layout, Card, Space, Divider, Button, Avatar, Upload } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import axios from "axios";
-import TextEditor from "../../components/TextEditor";
 import NickNameEditPopup from "../../components/user/NickNameEditPopup";
 import PasswordEditPopup from "../../components/user/PasswordEditPopup";
 import IntroduceEditPopup from "../../components/user/IntroduceEditPopup";
@@ -31,7 +30,24 @@ const MyPage = () => {
 
   const uploadProps = {
     name: "file",
-    action: "https://",
+    action: async (file) => {
+      const form = new FormData();
+      form.append("profileImage", file);
+      await axios({
+        url: "/api/user/profile",
+        method: "post",
+        data: form,
+        headers: {
+          jwt: window.sessionStorage.getItem("jwt"),
+        },
+      }).then((res) => {
+        const profile = res.data;
+        contextDispatch({
+          type: "PROFILE",
+          value: profile,
+        });
+      });
+    },
     headers: {
       authorization: "authorization-text",
     },
@@ -44,6 +60,8 @@ const MyPage = () => {
       }
     },
   };
+
+  console.log(user);
 
   return (
     <Layout className="mypage-container" style={containerStyle}>
@@ -69,7 +87,7 @@ const MyPage = () => {
             <Space>
               <p style={labelStyle}>프로필 사진</p>
               <Avatar
-                src={user.image}
+                src={user.profile}
                 shape="circle"
                 icon={<UserOutlined />}
                 size={60}
@@ -77,12 +95,7 @@ const MyPage = () => {
               />
             </Space>
             <Upload {...uploadProps} showUploadList={false}>
-              <Button
-                type="ghost"
-                size="large"
-                style={editButtonStyle}
-                onClick={() => {}}
-              >
+              <Button type="ghost" size="large" style={editButtonStyle}>
                 사진 변경
               </Button>
             </Upload>

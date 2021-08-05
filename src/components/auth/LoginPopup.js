@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Form, Input, Button, Space } from "antd";
 
 import "../../fonts/font.css";
@@ -7,6 +7,7 @@ import logo from "../../farmfather_logo.png";
 
 import { CloseOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { UserContext } from "../../context/auth/UserContextProvider";
 
 const formItemLayout = {
   labelCol: {
@@ -46,6 +47,8 @@ const LoginPopup = ({ display, closeLoginPopup }) => {
   const popupRef = useRef(null);
   const inputRef = useRef(null);
 
+  const { user, contextDispatch } = useContext(UserContext);
+
   const onSubmit = async (values) => {
     const { email, password } = values;
     await axios
@@ -55,8 +58,13 @@ const LoginPopup = ({ display, closeLoginPopup }) => {
       })
       .then((res) => {
         console.log(res.data);
-        window.sessionStorage.setItem("user", res.data.user);
+        contextDispatch({
+          type: "LOGIN",
+          value: res.data.user,
+        });
+        window.sessionStorage.setItem("user", JSON.stringify(res.data.user));
         window.sessionStorage.setItem("jwt", res.data.jwt);
+        closeLoginPopup();
       })
       .catch((err) => {
         if (err.response.status === 401) {

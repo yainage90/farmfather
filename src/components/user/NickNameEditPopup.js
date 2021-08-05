@@ -6,6 +6,7 @@ import "../../fonts/font.css";
 import { CloseOutlined } from "@ant-design/icons";
 
 import { UserContext } from "../../context/auth/UserContextProvider";
+import axios from "axios";
 
 const NickNameEditPopup = ({ close }) => {
   const [form] = Form.useForm();
@@ -15,13 +16,30 @@ const NickNameEditPopup = ({ close }) => {
 
   const { user, contextDispatch } = useContext(UserContext);
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     const { nickName } = values;
-    //...
-    contextDispatch({
-      type: "NICKNAME",
-      value: nickName,
-    });
+
+    await axios({
+      url: "/api/user/nickName",
+      method: "put",
+      data: {
+        nickName: nickName,
+      },
+      headers: {
+        jwt: window.sessionStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        contextDispatch({
+          type: "NICKNAME",
+          value: res.data.nickName,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     close();
   };
 
