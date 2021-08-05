@@ -3,28 +3,35 @@ import React from "react";
 import { Layout, Steps } from "antd";
 
 import "../../../fonts/font.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const { Step } = Steps;
 
 const { Header } = Layout;
 
 const EditStatusBar = ({ action, current }) => {
-  const asteps = [
+  const { id } = useParams();
+
+  const steps = [
     {
       stage: 0,
       title: "수업 정보",
-      url: "/instruct/edit/course_info",
+      link: "course_info",
     },
     {
       stage: 1,
-      title: "상세 설명",
-      url: "/instruct/edit/course_detail",
+      title: "썸네일",
+      link: "course_thumbnail",
     },
     {
       stage: 2,
+      title: "상세 설명",
+      link: "course_detail",
+    },
+    {
+      stage: 3,
       title: "수업 컨텐츠",
-      url: "/instruct/edit/course_content",
+      link: "course_content",
     },
   ];
 
@@ -41,39 +48,43 @@ const EditStatusBar = ({ action, current }) => {
         {action}
       </p>
       <div className="status-bar" style={stepsContainerStyle}>
-        <Steps
-          type="navigation"
-          size="small"
-          current={current}
-          onChange={null}
-          className="site-navigation-steps"
-          style={stepsStyle}
-        >
-          {asteps.map((step, index) => (
-            <Step
-              key={index}
-              status={
-                step.stage < current
-                  ? "finish"
-                  : index > current
-                  ? "wait"
-                  : "process"
-              }
-              title={
-                <p
-                  style={{
-                    margin: "0 0",
-                    fontFamily: "notosans_medium",
-                    fontSize: "1rem",
-                    color: "#000",
-                  }}
-                >
-                  {step.title}
-                </p>
-              }
-            />
-          ))}
-        </Steps>
+        {current >= 0 && (
+          <Steps
+            type="navigation"
+            size="small"
+            current={current}
+            onChange={null}
+            className="site-navigation-steps"
+            style={stepsStyle}
+          >
+            {steps.map((step, index) => (
+              <Step
+                key={index}
+                status={
+                  step.stage < current
+                    ? "finish"
+                    : index > current
+                    ? "wait"
+                    : "process"
+                }
+                title={
+                  <Link to={`/instruct/edit/${id}/${step.link}`}>
+                    <p
+                      style={{
+                        margin: "0 0",
+                        fontFamily: "notosans_medium",
+                        fontSize: "1rem",
+                        color: "#000",
+                      }}
+                    >
+                      {step.title}
+                    </p>
+                  </Link>
+                }
+              />
+            ))}
+          </Steps>
+        )}
       </div>
     </Header>
   );

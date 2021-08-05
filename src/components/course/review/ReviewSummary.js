@@ -105,7 +105,9 @@ const StarProgress = ({ star, reviews }) => {
         </p>
         <Progress
           strokeColor="#fae20a"
-          percent={(getStarCount(star) / reviews.length) * 100}
+          percent={
+            (reviews && (getStarCount(star) / reviews.length) * 100) || 0
+          }
         />
       </div>
     </div>

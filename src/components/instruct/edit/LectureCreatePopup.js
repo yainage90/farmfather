@@ -18,9 +18,9 @@ const LectureCreatePopup = ({
   const inputRef = useRef(null);
 
   const onSubmit = (values) => {
-    const { title } = values;
+    const { title, videoUrl } = values;
     const id = lecture.id || v4();
-    createLecture({ title, id });
+    createLecture({ id, title, videoUrl });
     closeLectureCreatePopup();
   };
 
@@ -73,6 +73,7 @@ const LectureCreatePopup = ({
                   padding: "0 0",
                   fontFamily: "notosans_medium",
                   fontSize: "18px",
+                  marginRight: "20px",
                 }}
               >
                 수업 제목
@@ -86,7 +87,28 @@ const LectureCreatePopup = ({
           >
             <Input ref={inputRef} style={inputStyle} />
           </Form.Item>
-
+          <Form.Item
+            name="videoUrl"
+            label={
+              <p
+                style={{
+                  margin: "0 0",
+                  padding: "0 0",
+                  fontFamily: "notosans_medium",
+                  fontSize: "18px",
+                }}
+              >
+                동영상 URL
+              </p>
+            }
+            style={{
+              display: "flex",
+              width: "100%",
+            }}
+            initialValue={lecture.videoUrl}
+          >
+            <Input ref={inputRef} style={inputStyle} />
+          </Form.Item>
           <div
             style={{
               display: "flex",
