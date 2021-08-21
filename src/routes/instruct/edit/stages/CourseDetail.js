@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { Layout, Input, Button } from "antd";
 
@@ -10,7 +10,6 @@ import { CourseContext } from "../../../../context/course/CourseContextProvider"
 
 const CourseDetail = () => {
   const { id } = useParams();
-  const form = Form.useForm;
 
   const { course, contextDispatch } = useContext(CourseContext);
 

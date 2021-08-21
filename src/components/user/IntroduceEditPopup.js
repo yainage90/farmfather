@@ -1,19 +1,11 @@
-import React, { useRef, useEffect, useContext } from "react";
-import { Form, Input, Button } from "antd";
+import React, { useRef, useEffect } from "react";
 
 import "../../fonts/font.css";
 
-import { UserContext } from "../../context/auth/UserContextProvider";
 import TextEditor from "../TextEditor";
-import axios from "axios";
 
-const IntroduceEditPopup = ({ close }) => {
-  const [form] = Form.useForm();
-
-  const popupRef = useRef(null);
+const IntroduceEditPopup = () => {
   const inputRef = useRef(null);
-
-  const { user, contextDispatch } = useContext(UserContext);
 
   const textEditorProps = {
     submitUrl: `/api/course/`,

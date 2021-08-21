@@ -20,21 +20,21 @@ const EditCourse = () => {
 
   const { id } = useParams();
 
-  if (window.location.pathname.endsWith("course_info") && current != 0) {
+  if (window.location.pathname.endsWith("course_info") && current !== 0) {
     setCurrent(0);
   } else if (
     window.location.pathname.endsWith("course_thumbnail") &&
-    current != 1
+    current !== 1
   ) {
     setCurrent(1);
   } else if (
     window.location.pathname.endsWith("course_detail") &&
-    current != 2
+    current !== 2
   ) {
     setCurrent(2);
   } else if (
     window.location.pathname.endsWith("course_content") &&
-    current != 3
+    current !== 3
   ) {
     setCurrent(3);
   }

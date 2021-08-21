@@ -56,6 +56,7 @@ const App = () => {
             </CourseContextProvider>
             <Route path="/mypage" component={MyPage} />
             <Route path="/video/:videoId" component={VideoPlay} />
+            <Route path="/community" component={null} />
           </Content>
           <AppFooter />
         </Layout>

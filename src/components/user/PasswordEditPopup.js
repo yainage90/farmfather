@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 
 import "../../fonts/font.css";
@@ -11,9 +11,7 @@ const PasswordEditPopup = ({ close }) => {
   const popupRef = useRef(null);
   const inputRef = useRef(null);
 
-  const onSubmit = (values) => {
-    const { currentPassword, newPassword1, newPassword2 } = values;
-    //...
+  const onSubmit = () => {
     close();
   };
 

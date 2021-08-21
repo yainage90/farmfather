@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
-import { Space, Button } from "antd";
+import { Button } from "antd";
 import axios from "axios";
 
 import { useParams } from "react-router";
@@ -11,7 +11,6 @@ const TextEditor = ({
   okButtonTitle,
   cancelButtonTitle,
   goOkTarget,
-  goCancelTarget,
   buttonsContainerStyle,
   submitBtnStyle,
   content,

@@ -156,14 +156,6 @@ const titleStyle = {
   color: "#fff",
 };
 
-const subTitleStyle = {
-  margin: "0 0",
-  padding: "0 0",
-  fontFamily: "notosans_thin",
-  fontSize: "20px",
-  color: "#fff",
-};
-
 const mentorStyle = {
   margin: "0 0",
   padding: "0 0",

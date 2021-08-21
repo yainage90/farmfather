@@ -15,7 +15,7 @@ import ReviewList from "./review/ReviewList";
 const { TabPane } = Tabs;
 
 const CourseTab = ({ data }) => {
-  const { id, detail, price, learns, chapters, qnas, reviews, starAvg } = data;
+  const { detail, price, learns, chapters, qnas, reviews, starAvg } = data;
 
   return (
     <Layout className="tabsLayout" style={tabsLayoutStyle}>

@@ -18,7 +18,7 @@ import "../../../../fonts/font.css";
 const CourseThumbnail = () => {
   const { id } = useParams();
 
-  const { course, contextDispatch } = useContext(CourseContext);
+  const { course } = useContext(CourseContext);
 
   const [loading, setLoading] = useState(false);
 

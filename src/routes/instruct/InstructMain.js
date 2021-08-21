@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Layout from "antd/lib/layout/layout";
 import { Route, Switch } from "react-router-dom";
 import InstructionNavigation from "../../components/instruct/InstructNavigation";
 import MyCourseList from "./list/MyCourseList";
-import axios from "axios";
 import EditCourse from "./edit/EditCourse";
 import CreateCourse from "./create/CreateCourse";
 

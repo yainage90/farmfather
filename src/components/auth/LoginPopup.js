@@ -47,7 +47,7 @@ const LoginPopup = ({ display, closeLoginPopup }) => {
   const popupRef = useRef(null);
   const inputRef = useRef(null);
 
-  const { user, contextDispatch } = useContext(UserContext);
+  const { contextDispatch } = useContext(UserContext);
 
   const onSubmit = async (values) => {
     const { email, password } = values;

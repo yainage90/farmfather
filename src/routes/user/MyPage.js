@@ -207,26 +207,6 @@ const textStyle = {
   margin: 0,
 };
 
-const inputStyle = {
-  fontFamily: "notosans_medium",
-  fontSize: "1.1rem",
-  width: "100%",
-  maxWidth: "576px",
-  background: "#f0f0f0",
-};
-
-const buttonStyle = {
-  width: "100%",
-  maxWidth: "576px",
-  marginTop: "50px",
-  height: "auto",
-  minHeight: "3.4rem",
-  fontFamily: "notosans_bold",
-  fontSize: "1.4rem",
-  background: "#30d090",
-  borderWidth: 0,
-};
-
 const editButtonStyle = {
   background: "#fff",
   fontFamily: "notosans_medium",
