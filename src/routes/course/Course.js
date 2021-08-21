@@ -19,7 +19,7 @@ const Course = () => {
       });
     };
     getCourseInfo();
-  }, []);
+  }, [id]);
 
   return (
     <Layout className="container" style={containerStyle}>
