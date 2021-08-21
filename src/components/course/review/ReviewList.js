@@ -88,7 +88,6 @@ const ReviewList = ({ reviews, starAvg }) => {
 
                 alert(comment);
               }}
-              type="primary"
               size="large"
               style={{
                 width: "5rem",
