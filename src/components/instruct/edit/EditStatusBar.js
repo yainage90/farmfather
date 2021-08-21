@@ -99,7 +99,6 @@ const headerStyle = {
   background: "#20e580",
   position: "sticky",
   top: 0,
-  width: "100%",
 };
 
 const stepsContainerStyle = {
