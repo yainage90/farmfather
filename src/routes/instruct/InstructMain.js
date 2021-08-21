@@ -21,35 +21,27 @@ const navs = [
 const InstructMain = () => {
   return (
     <Layout className="page-container" style={containerStyle}>
-      <Layout className="page" style={pageStyle}>
-        <div className="navigation-container" style={navigationContainerStyle}>
-          <InstructionNavigation
-            className="navigation"
-            mode="inline"
-            navs={navs}
-          />
-        </div>
-        <Switch>
-          <Route path="/instruct/list" render={() => <MyCourseList />} exact />
-          <Route path="/instruct/edit/:id" component={EditCourse} />
-          <Route path="/instruct/create" component={CreateCourse} />
-        </Switch>
-      </Layout>
+      <div className="navigation-container" style={navigationContainerStyle}>
+        <InstructionNavigation
+          className="navigation"
+          mode="inline"
+          navs={navs}
+        />
+      </div>
+      <Switch>
+        <Route path="/instruct/list" render={() => <MyCourseList />} exact />
+        <Route path="/instruct/edit/:id" component={EditCourse} />
+        <Route path="/instruct/create" component={CreateCourse} />
+      </Switch>
     </Layout>
   );
 };
 
 const containerStyle = {
   display: "flex",
-  flexDirection: "column",
-  width: "100%",
-  background: "#fff",
-};
-
-const pageStyle = {
-  display: "flex",
   flexDirection: "row",
   width: "100%",
+  maxWidth: "1480px",
   background: "#fff",
 };
 
