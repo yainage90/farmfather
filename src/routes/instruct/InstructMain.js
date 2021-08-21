@@ -22,11 +22,7 @@ const InstructMain = () => {
   return (
     <Layout className="page-container" style={containerStyle}>
       <div className="navigation-container" style={navigationContainerStyle}>
-        <InstructionNavigation
-          className="navigation"
-          mode="inline"
-          navs={navs}
-        />
+        <InstructionNavigation className="navigation" navs={navs} />
       </div>
       <Switch>
         <Route path="/instruct/list" render={() => <MyCourseList />} exact />
