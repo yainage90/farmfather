@@ -61,7 +61,7 @@ const EditCourse = () => {
     };
 
     getCourse();
-  }, []);
+  }, [id, contextDispatch]);
 
   return (
     <Layout className="edit-container" style={createContainerStyle}>
