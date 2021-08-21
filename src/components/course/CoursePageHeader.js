@@ -36,7 +36,7 @@ const RenderContent = (
     };
 
     getMentor();
-  }, [JSON.stringify(mentor)]);
+  }, [mentorId]);
 
   return (
     <div className="headerContainer" style={headerContainerStyle}>
