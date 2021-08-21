@@ -27,7 +27,6 @@ const TextEditor = ({
         initialValue={content || "글을 작성하세요!"}
         init={{
           height: 500,
-          menubar: false,
           plugins: [
             "advlist autolink lists link image charmap print preview anchor",
             "searchreplace visualblocks code fullscreen",
