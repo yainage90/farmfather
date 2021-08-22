@@ -18,6 +18,7 @@ import MyPage from "./routes/user/MyPage";
 import UserContextProvider from "./context/auth/UserContextProvider";
 import CourseContextProvider from "./context/course/CourseContextProvider";
 import VideoPlay from "./routes/course/VideoPlay";
+import BoardMain from "./routes/community/BoardMain";
 
 const { Content } = Layout;
 
@@ -56,7 +57,7 @@ const App = () => {
             </CourseContextProvider>
             <Route path="/mypage" component={MyPage} />
             <Route path="/video/:videoId" component={VideoPlay} />
-            <Route path="/community" component={null} />
+            <Route path="/community" component={BoardMain} />
           </Content>
           <AppFooter />
         </Layout>

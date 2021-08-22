@@ -25,13 +25,19 @@ const navs = [
     link: "/mypage",
     restricted: true,
   },
+  {
+    title: "커뮤니티",
+    link: "/community/qna",
+    restricted: true,
+  },
 ];
 
 const AppHeader = ({ showLoginPopup }) => {
-  const { user, contextDispatch } = useContext(UserContext);
+  const { user, contextDispatch: userContextDispatch } =
+    useContext(UserContext);
 
   const logout = () => {
-    contextDispatch({
+    userContextDispatch({
       type: "LOGOUT",
       value: null,
     });
