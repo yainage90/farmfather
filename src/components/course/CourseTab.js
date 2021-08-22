@@ -7,15 +7,24 @@ import "../../fonts/font.css";
 import CourseWidget from "./CourseWidget";
 import Chapters from "./chapters/Chapters";
 
-import TextEditor from "../TextEditor";
 import QuestionDetail from "./qna/QuestionDetail";
 import QnAList from "./qna/QnAList";
 import ReviewList from "./review/ReviewList";
+
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState } from "draft-js";
 
 const { TabPane } = Tabs;
 
 const CourseTab = ({ data }) => {
   const { detail, price, learns, chapters, qnas, reviews, starAvg } = data;
+
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const onEditorStateChange = (editorState) => {
+    setEditorState(editorState);
+  };
 
   return (
     <Layout className="tabsLayout" style={tabsLayoutStyle}>
@@ -141,29 +150,6 @@ const renderLearns = (learns) => {
   );
 };
 
-const textEditorProps = {
-  submitUrl: `/api/course/`,
-  okButtonTitle: `확인`,
-  cancelButtonTitle: `취소`,
-
-  buttonsContainerStyle: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  submitBtnStyle: {
-    minWidth: "140px",
-    marginTop: "50px",
-    height: "auto",
-    minHeight: "3.4rem",
-    fontFamily: "notosans_bold",
-    fontSize: "1.4rem",
-    background: "#30d090",
-    borderWidth: 0,
-  },
-};
-
 const QnAs = ({ qnas }) => {
   const [currentView, setCurrentView] = useState("list");
   const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -190,7 +176,22 @@ const QnAs = ({ qnas }) => {
       />
     );
   } else if (currentView === "write") {
-    return <TextEditor textEditorProps={textEditorProps} />;
+    return (
+      <Editor
+        toolbar={{
+          list: { inDropdown: true },
+          textAlign: { inDropdown: true },
+          link: { inDropdown: true },
+          history: { inDropdown: false },
+        }}
+        placeholder="내용을 작성하세요"
+        localization={{
+          locale: "ko",
+        }}
+        editorState={editorState}
+        onEditorStateChange={onEditorStateChange}
+      />
+    );
   } else if (currentView === "detail") {
     return (
       <QuestionDetail qna={selectedQuestion} onBackClicked={onBackClicked} />
