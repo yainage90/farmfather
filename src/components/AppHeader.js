@@ -28,7 +28,7 @@ const navs = [
   {
     title: "커뮤니티",
     link: "/community/qna",
-    restricted: true,
+    restricted: false,
   },
 ];
 
