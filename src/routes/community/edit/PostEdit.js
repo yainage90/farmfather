@@ -12,9 +12,14 @@ import { Form, Input, Button, Radio } from "antd";
 
 import { UserContext } from "../../../context/auth/UserContextProvider";
 
-const PostEdit = ({ id }) => {
+import { useParams } from "react-router-dom";
+
+const PostEdit = () => {
   const { user } = useContext(UserContext);
 
+  const { id } = useParams();
+
+  const [data, setData] = useState({});
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const onEditorStateChange = (editorState) => {
@@ -25,8 +30,6 @@ const PostEdit = ({ id }) => {
   const [form] = Form.useForm();
 
   const onFinish = async (value) => {
-    console.log("title:", value.title);
-    console.log("category:", value.category);
     const htmlContent = draftToHtml(
       convertToRaw(editorState.getCurrentContent())
     );
@@ -34,7 +37,7 @@ const PostEdit = ({ id }) => {
 
     await axios({
       method: (id && "put") || "post",
-      url: "/api/post/save",
+      url: (id && "/api/post/update") || "/api/post/save",
       headers: {
         jwt: window.sessionStorage.getItem("jwt"),
       },
@@ -48,7 +51,7 @@ const PostEdit = ({ id }) => {
     })
       .then((res) => {
         console.log(res);
-        window.location = `/community/${value.category}`;
+        window.location.href = `/community/${value.category}`;
       })
       .catch((err) => {
         console.log(err);
@@ -56,8 +59,8 @@ const PostEdit = ({ id }) => {
       });
   };
 
-  useEffect(async () => {
-    if (id) {
+  useEffect(() => {
+    const getPost = async (id) => {
       await axios({
         method: "get",
         url: `/api/post/${id}`,
@@ -66,8 +69,9 @@ const PostEdit = ({ id }) => {
         },
       })
         .then((res) => {
-          const htmlContent = res.data;
-          const blocksFromHtml = htmlToDraft(htmlContent);
+          console.log(res.data);
+          const { content } = res.data;
+          const blocksFromHtml = htmlToDraft(content);
           const { contentBlocks, entityMap } = blocksFromHtml;
           const contentState = ContentState.createFromBlockArray(
             contentBlocks,
@@ -75,13 +79,21 @@ const PostEdit = ({ id }) => {
           );
 
           const editorState = EditorState.createWithContent(contentState);
+          setData(res.data);
           setEditorState(editorState);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
+    };
+
+    if (id) {
+      getPost(id);
+      form.resetFields();
     }
-  }, [id]);
+  }, [id, data.title]);
+
+  const { title, category } = data;
 
   return (
     <div class="editor-container" style={editorContainerStyle}>
@@ -91,25 +103,19 @@ const PostEdit = ({ id }) => {
         onFinish={onFinish}
         style={formStyle}
         size="large"
+        initialValues={{
+          title: title,
+          category: category,
+        }}
       >
         <p style={labelStyle}>제목</p>
-        <Form.Item
-          name="title"
-          rules={[
-            {
-              required: true,
-              message: "제목을 입력하세요",
-            },
-          ]}
-          hasFeedback
-          style={formItemStyle}
-        >
+        <Form.Item name="title" style={formItemStyle}>
           <Input placeholder="제목을 입력하세요" size="large" />
         </Form.Item>
 
         <p style={labelStyle}>게시판</p>
-        <Form.Item name="category" initialValue="qna" style={formItemStyle}>
-          <Radio.Group defaultValue="qna" buttonStyle="solid">
+        <Form.Item name="category" style={formItemStyle}>
+          <Radio.Group buttonStyle="solid" defaultValue={"qna"}>
             <Radio.Button value="qna">질문있어요</Radio.Button>
             <Radio.Button value="tip">팁 공유</Radio.Button>
           </Radio.Group>
@@ -146,7 +152,7 @@ const PostEdit = ({ id }) => {
               type="ghost"
               size="large"
               onClick={() => {
-                window.location = "/community";
+                window.history.back();
               }}
               style={buttonStyle}
             >
