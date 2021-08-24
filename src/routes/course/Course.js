@@ -7,19 +7,25 @@ import CoursePageHeader from "../../components/course/CoursePageHeader";
 import { Layout } from "antd";
 
 const Course = () => {
-  const [course, setCourse] = useState(Object.create({}));
+  const [course, setCourse] = useState(null);
 
   const { id } = useParams();
 
   useEffect(() => {
     const getCourseInfo = async () => {
-      await axios.get(`/api/course/${id}`).then((res) => {
+      await axios({
+        url: `/api/course/${id}`,
+        method: "get",
+        headers: {
+          jwt: window.sessionStorage.getItem("jwt"),
+        },
+      }).then((res) => {
         console.log(res.data);
         setCourse(res.data);
       });
     };
     getCourseInfo();
-  }, [id]);
+  }, [course]);
 
   return (
     <Layout className="container" style={containerStyle}>
