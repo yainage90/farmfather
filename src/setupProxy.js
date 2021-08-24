@@ -7,4 +7,11 @@ module.exports = (app) => {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    createProxyMiddleware("/service", {
+      target: "http://api.nongsaro.go.kr:80",
+      changeOrigin: true,
+    })
+  );
 };
