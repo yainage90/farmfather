@@ -11,6 +11,11 @@ const { Header } = Layout;
 
 const navs = [
   {
+    title: "공공 강의",
+    link: "/nongsaro/FC",
+    restricted: false,
+  },
+  {
     title: "강의",
     link: "/courses",
     restricted: false,
@@ -119,6 +124,7 @@ const headerStyle = {
 };
 const menuStyle = {
   minWidth: "500px",
+  width: "100%",
   justifyContent: "center",
   borderWidth: "0",
   fontSize: "20px",
