@@ -38,6 +38,7 @@ const BoardMain = () => {
         />
         <Route path="/community/tip/:id" render={() => <Post />} exact />
         <Route path="/community/edit" render={() => <PostEdit />} exact />
+        <Route path="/community/edit/:id" render={() => <PostEdit />} exact />
       </Switch>
     </Layout>
   );
