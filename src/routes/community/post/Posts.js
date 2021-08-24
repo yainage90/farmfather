@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
-
-import { Button, Input, Layout, Table, Form } from "antd";
-import axios from "axios";
-
-import { Select } from "antd";
-
 import { EditOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Select, Table } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const { Option } = Select;
@@ -93,7 +89,7 @@ const Posts = ({ category }) => {
   }));
 
   return (
-    <Layout className="content-container" style={contentContainerStyle}>
+    <div className="content-container" style={contentContainerStyle}>
       <div class="widget-container" style={widgetContainerStyle}>
         <Form form={form} onFinish={onSearch} style={searchContainerStyle}>
           <Form.Item name="field" initialValue="title" style={selectStyle}>
@@ -135,37 +131,36 @@ const Posts = ({ category }) => {
         columns={columns}
         pagination={{ position: "bottomCenter" }}
         dataSource={data}
-        style={{
-          fontFamily: "notosans_medium",
-          width: "80%",
-        }}
+        style={tableStyle}
         size="small"
         tableLayout="fixed"
         onRow={(record, rowIndex) => {
           return {
             onClick: () => {
-              window.location = `${window.location.pathname}/${record.key}`;
+              window.location.href = `${window.location.pathname}/${record.key}`;
             },
           };
         }}
       />
-    </Layout>
+    </div>
   );
 };
 
 const contentContainerStyle = {
   display: "flex",
   flexDirection: "column",
-  width: "100%",
-  alignItems: "center",
+  maxWidth: "1080px",
+  width: "70%",
+  alignItems: "flex-start",
   paddingTop: "5%",
+  marginLeft: "50px",
 };
 
 const widgetContainerStyle = {
   display: "flex",
   justifyContent: "space-bewteen",
-  width: "80%",
   marginBottom: "2rem",
+  width: "100%",
 };
 
 const searchContainerStyle = {
@@ -190,6 +185,11 @@ const buttonStyle = {
   borderColor: "#808080",
   fontFamily: "notosans_bold",
   fontSize: "15px",
+};
+
+const tableStyle = {
+  fontFamily: "notosans_medium",
+  width: "100%",
 };
 
 const tableColumnsTitleStyle = {
