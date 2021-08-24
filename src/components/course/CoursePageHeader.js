@@ -15,11 +15,9 @@ import { UserOutlined } from "@ant-design/icons";
 import "../../fonts/font.css";
 import axios from "axios";
 
-const RenderContent = (
-  column = 1,
-  { title, starAvg, mentorId, price, thumbnail }
-) => {
+const RenderContent = (column = 1, data) => {
   const [mentor, setMentor] = useState(null);
+  const { title, starAvg, mentorId, price, thumbnail } = data || {};
 
   useEffect(() => {
     const getMentor = async () => {
@@ -35,7 +33,9 @@ const RenderContent = (
       });
     };
 
-    getMentor();
+    if (mentorId) {
+      getMentor();
+    }
   }, [mentorId]);
 
   return (

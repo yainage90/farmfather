@@ -18,13 +18,8 @@ import { EditorState } from "draft-js";
 const { TabPane } = Tabs;
 
 const CourseTab = ({ data }) => {
-  const { detail, price, learns, chapters, qnas, reviews, starAvg } = data;
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-  };
+  const { detail, price, learns, chapters, qnas, reviews, starAvg } =
+    data || {};
 
   return (
     <Layout className="tabsLayout" style={tabsLayoutStyle}>
@@ -153,6 +148,11 @@ const renderLearns = (learns) => {
 const QnAs = ({ qnas }) => {
   const [currentView, setCurrentView] = useState("list");
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const onEditorStateChange = (editorState) => {
+    setEditorState(editorState);
+  };
 
   const onCardClicked = (qna) => {
     setSelectedQuestion(qna);
